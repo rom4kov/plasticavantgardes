@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ruins of Reason</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body class="bg-white">
+    <div>
+        <div>
+            <img src="static/images/uprising68.jpg" alt="a protester throwing a stone during May '68 uprising in Paris"
+                 class="fixed w-full h-2/3 object-cover object-top">
+            <div class="bg-gradient-to-b from-black w-full h-1/3 fixed"></div>
+            <div class="bg-gradient-to-t from-white w-full h-1/3 fixed transform translate-y-full mt-1"></div>
+        </div>
+        <div class="container fixed left-1/2 transform -translate-x-1/2 mx-auto block h-96">
+            {% include "navbar.html" %}
+        </div>
+        <h1
+            class="text-6xl font-extrabold font-sans text-white fixed top-24 left-1/2 transform -translate-x-1/2 z-20"
+        >Ruins of <span class="text-red-300">Reason</span></h1>
+        <div class="container absolute left-1/2 transform -translate-x-1/2 top-1/2 z-10 pb-[10rem]">
+            {% for post in posts: %}
+                <div class="w-3/4 h-full mx-auto shadow-xl m-12 p-5 bg-gray-100 rounded-lg article-card">
+                    <h2 class="text-xl text-red-400 font-extrabold mb-3">{{ post["title"] }}</h2>
+                    <p class="text">{{ post["subtitle"] }}"</p>
+                    <a href="{{ url_for('get_post', num=post['id']) }}" class="underline mt-3 block">Read</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% include "footer.html" %}
+    <script src="../static/js/fadeout.js"></script>
+</body>
+</html>

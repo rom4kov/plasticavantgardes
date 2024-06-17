@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact - Ruins of Reason</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body class="bg-white">
+<div>
+    <div>
+        <img src="static/images/fire.jpg" alt="a protester throwing a stone during May '68 uprising in Paris"
+             class="fixed w-full h-2/3 object-cover object-top">
+        <div class="bg-gradient-to-b from-black w-full h-1/3 fixed"></div>
+        <div class="bg-gradient-to-t from-white w-full h-1/3 fixed transform translate-y-full mt-1"></div>
+    </div>
+    <div class="container fixed left-1/2 transform -translate-x-1/2 mx-auto block h-96">
+        {% include "navbar.html" %}
+    </div>
+    <h1
+            class="text-6xl font-extrabold font-sans text-white fixed top-48 left-1/2 transform -translate-x-1/2 z-20"
+    >Contact</h1>
+    <div class="container absolute left-1/2 pb-[10rem] transform -translate-x-1/2 top-1/2 z-10">
+        <div class="w-3/4 h-full mx-auto shadow-xl m-12 p-5 bg-gray-100 rounded-lg article-card">
+            <div class="flex items-center justify-center p-12">
+                <div class="mx-auto w-full max-w-[550px]">
+                    <p class="mb-12">Want to get in touch? Fill out the form below to send me a message and I will get back to you as
+                        soon as possible!</p>
+                    <form action="https://formbold.com/s/FORM_ID" method="POST">
+                        <div class="mb-5">
+                            <label
+                                    for="name"
+                                    class="mb-3 block text-base font-bold text-red-500"
+                            >
+                                Full Name
+                            </label>
+                            <input
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    placeholder="Full Name"
+                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                            />
+                        </div>
+                        <div class="mb-5">
+                            <label
+                                    for="email"
+                                    class="mb-3 block text-base font-bold text-red-500"
+                            >
+                                Email Address
+                            </label>
+                            <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    placeholder="example@domain.com"
+                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                            />
+                        </div>
+                        <div class="mb-5">
+                            <label
+                                    for="subject"
+                                    class="mb-3 block text-base font-bold text-red-500"
+                            >
+                                Subject
+                            </label>
+                            <input
+                                    type="text"
+                                    name="subject"
+                                    id="subject"
+                                    placeholder="Enter your subject"
+                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                            />
+                        </div>
+                        <div class="mb-5">
+                            <label
+                                    for="message"
+                                    class="mb-3 block text-base font-bold text-red-500"
+                            >
+                                Message
+                            </label>
+                            <textarea
+                                rows="4"
+                                name="message"
+                                id="message"
+                                placeholder="Type your message"
+                                class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                            ></textarea>
+                        </div>
+                        <div>
+                            <button
+                                class="hover:bg-red-300 rounded-md bg-red-400 py-3 px-8 text-base font-bold text-white outline-none transition-all"
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}
+</body>
+</html>
+/html>

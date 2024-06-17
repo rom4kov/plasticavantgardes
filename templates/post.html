@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post['title'][:40] }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styles.css') }}">
+</head>
+<body>
+<div>
+    <div>
+        <img src="../static/images/parisdemo.jpg" alt="a protester throwing a stone during May '68 uprising in Paris"
+             class="fixed w-full h-2/3 object-cover object-top">
+        <div class="bg-gradient-to-b from-black w-full h-1/3 fixed"></div>
+        <div class="bg-gradient-to-t from-white w-full h-1/3 fixed transform translate-y-full mt-1"></div>
+    </div>
+    <div class="container fixed left-1/2 transform -translate-x-1/2 mx-auto block h-96">
+        {% include "navbar.html" %}
+    </div>
+    <h1
+            class="text-6xl font-extrabold font-sans relative top-48 text-white text-center"
+    >{{ post['title'] }}</h1>
+    <div class="w-2/5 h-full mx-auto shadow-xl relative top-[25rem] mb-[40rem] p-5 bg-gray-100 rounded-lg">
+        <h3 style="font-size: 1.2rem; font-weight: 500;" class="mb-2">{{ post['subtitle'] }}</h3>
+        <p class="mb-5">{{ post['body'] }}</p>
+        <p class="mb-5">{{ post['body'] }}</p>
+        <p class="mb-5">{{ post['body'] }}</p>
+        <a href="/">Go back to home</a>
+    </div>
+</div>
+</body>
+{% include "footer.html" %}
+</html>
