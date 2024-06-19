@@ -63,6 +63,10 @@ body{
   line-height:22px;
 }
 
+input {
+  padding-left: 1rem;
+}
+
 footer {
   position: fixed;
   left: 0;
