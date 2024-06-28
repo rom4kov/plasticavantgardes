@@ -1,37 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>About - Ruins of Reason</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styles.css') }}">
-</head>
-<body class="bg-white">
-<div>
-    <div>
-        <img src="static/images/parisdemo.jpg" alt="a protester throwing a stone during May '68 uprising in Paris"
-             class="fixed w-full h-2/3 object-cover object-top">
-        <div class="bg-gradient-to-b from-black w-full h-1/3 fixed"></div>
-        <div class="bg-gradient-to-t from-white w-full h-1/3 fixed transform translate-y-full mt-1"></div>
-    </div>
-    <div class="container fixed left-1/2 transform -translate-x-1/2 mx-auto block h-96">
-        {% include "navbar.html" %}
-    </div>
-    <h1
-            class="text-6xl font-extrabold font-sans text-white fixed top-48 left-1/2 transform -translate-x-1/2 z-20"
-    >About</h1>
-    <div class="container absolute left-1/2 transform -translate-x-1/2 top-[25rem] z-10">
-        <div class="w-3/4 h-full mx-auto shadow-xl m-12 p-12 bg-gray-100 rounded-lg article-card">
-            <h2 class="text-xl text-red-500 text-center font-extrabold mb-3">Writing is part of the class struggle</h2>
-            <p class="text-center">I'm an independent researcher, philosopher and activist. I write about topics like social
-                revolution, the history of Marxism, feminism, tactics of class struggle and similar things. Not everybody
-                is convinced that writing can contribute to class struggle. With this blog I intend to put this question
-                to the test. There is a long intellectual tradition of people who shared the deep conviction that
-                writing and reflecting on all kind of struggles and their interconnectedness can not only support these
-                struggles themselves but is an integral part of them. I will try to engage with some of the most
-                valuable works and contributions of these comrades.</p>
-        </div>
+{% extends "base.html" %}
+{% block content %}
+<h1 class="text-6xl font-extrabold font-sans text-white fixed top-48 left-1/2 transform -translate-x-1/2 z-20">
+    About
+</h1>
+<div class="container absolute left-1/2 transform -translate-x-1/2 top-[25rem] z-10">
+    <div class="w-3/4 h-full mx-auto shadow-xl m-12 p-12 bg-gray-100 rounded-lg article-card">
+        <h2 class="text-xl text-red-500 text-center font-extrabold mb-3">Writing is part of the class struggle</h2>
+        <p class="text-center">I'm an independent researcher, philosopher and activist. I write about topics like social
+            revolution, the history of Marxism, feminism, tactics of class struggle and similar things. Not everybody
+            is convinced that writing can contribute to class struggle. With this blog I intend to put this question
+            to the test. There is a long intellectual tradition of people who shared the deep conviction that
+            writing and reflecting on all kind of struggles and their interconnectedness can not only support these
+            struggles themselves but is an integral part of them. I will try to engage with some of the most
+            valuable works and contributions of these comrades.</p>
     </div>
 </div>
 {% include "footer.html" %}
-</body>
-</html>
+{% endblock %}

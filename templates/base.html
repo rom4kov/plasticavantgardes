@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/styles_output.css">
 </head>
 <body>
+    {% include "header.html" %}
     {% block content %}{% endblock %}
 </body>
 </html>

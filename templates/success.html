@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 
 {% block title %}Success{% endblock %}
+{% block styling %}
+    {{ super() }}
+        body {
+            background-color: chartreuse !important;
+        }
 
+        h1 {
+            color: yellow;
+        }
+{% endblock %}
 {% block content %}
 <div class="container">
     <h1>Top Secret </h1>
