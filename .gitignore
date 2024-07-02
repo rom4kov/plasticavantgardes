@@ -1,4 +1,5 @@
 node_modules/
 downloads/
 .venv/
-static/images/
+static/images
+static/assets
