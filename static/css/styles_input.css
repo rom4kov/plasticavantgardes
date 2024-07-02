@@ -76,3 +76,11 @@ footer {
   color: white;
   text-align: center;
 }
+
+#cke_notifications_area_body {
+  display: none;
+}
+
+#cke_notifications_area_ckeditor {
+  display: none;
+}

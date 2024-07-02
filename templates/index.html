@@ -17,16 +17,30 @@
     <div class="w-3/4 h-full mx-auto shadow-xl m-12 p-5 bg-gray-100 rounded-lg article-card">
         <h2 class="text-xl text-red-400 font-extrabold mb-3">{{ post["title"] }}</h2>
         <p class="text">{{ post["subtitle"] }}</p>
+        <p class="text mt-2">By {{ post["author"]["name"] }}</p>
         <div class="flex gap-3">
             <a href="{{ url_for('get_post', post_id=post['id']) }}" class="underline mt-3 block">Read</a>
+            {% if current_user and current_user.id == 1: %}
             <a href="{{ url_for('delete', post_id=post['id']) }}" class="underline mt-3 block">✘</a>
+            {% endif %}
         </div>
     </div>
     {% endfor %}
+    {% if current_user and current_user.id == 1: %}
     <p class="w-48 mx-auto rounded-xl text-sm text-center text-white font-extrabold leading-6 bg-red-400
               hover:bg-red-300 transition-all duration-200 cursor-pointer">
         <a href="{{ url_for('new_post', heading='New Post') }}">Write a new blog post</a>
     </p>
+    {% endif %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flashes list-none text-center">
+        {% for message in messages %}
+        <li class="text-danger">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
 </div>
 {% include "footer.html" %}
 <script src="../static/js/fadeout.js"></script>

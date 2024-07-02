@@ -4,5 +4,11 @@
         <li class="hover:text-red-300"><a href="/">Home</a></li>
         <li class="hover:text-red-300"><a href="/about">About</a></li>
         <li class="hover:text-red-300"><a href="/contact">Contact</a></li>
+        {% if current_user.is_authenticated: %}
+        <li class="hover:text-red-300"><a href="/logout">Logout</a></li>
+        {% else: %}
+        <li class="hover:text-red-300"><a href="/login">Login</a></li>
+        <li class="hover:text-red-300"><a href="/register">Register</a></li>
+        {% endif %}
     </ul>
 </nav>
