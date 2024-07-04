@@ -29,6 +29,7 @@ class BlogPost(db.Model):
     author: Mapped["User"] = relationship(back_populates="posts")
     author_id: Mapped[int] = mapped_column(ForeignKey("user_table.id"))
     comments: Mapped[List["Comment"]] = relationship(back_populates="blog_post")
+    likes: Mapped[int] = mapped_column(Integer, nullable=False)
 
 
 class Comment(db.Model):
@@ -41,3 +42,4 @@ class Comment(db.Model):
     blog_post_id: Mapped[int] = mapped_column(ForeignKey("blog_post_table.id"))
     author: Mapped["User"] = relationship(back_populates="comments")
     author_id: Mapped[int] = mapped_column(ForeignKey("user_table.id"))
+    likes: Mapped[int] = mapped_column(Integer, nullable=False)

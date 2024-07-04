@@ -127,6 +127,7 @@ def new_post():
             author=current_user,
             author_id=current_user.id,
             date=date,
+            likes=0,
         )
         db.session.add(new_blogpost)
         db.session.commit()
@@ -162,6 +163,15 @@ def edit_post(post_id):
         db.session.commit()
         return redirect(url_for('home'))
     return render_template("make-post.html", form=form, post=post, heading=heading)
+
+
+@bp.route('/like-post/post_id')
+@login_required
+def like_post(post_id):
+    post = db.session.execute(db.select(BlogPost).where(BlogPost.id == post_id)).scalar()
+    post.likes += 1
+    db.session.commit()
+    return redirect(url_for('get_post', post_id=post_id))
 
 
 @bp.route('/delete/<post_id>')
