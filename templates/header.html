@@ -1,13 +1,19 @@
 <header class="bg-white">
 <div>
     <div>
-        <img src="../static/images/uprising68.jpg" alt="a protester throwing a stone during May '68 uprising in Paris"
-             class="fixed w-full h-2/3 object-cover object-top">
-        <div class="bg-gradient-to-b from-black w-full h-1/3 fixed"></div>
-        <div class="bg-gradient-to-t from-white w-full h-1/3 fixed transform translate-y-full mt-1"></div>
+        <img src="
+        {% if post: %}
+        {{ post.img_url }}
+        {% else: %}
+        {{ image }}
+        {% endif %}
+        " alt="a protester throwing a stone during May '68 uprising in Paris"
+             class="absolute w-full h-1/2 object-cover object-top">
+        {% if image: %}
+            <div class="bg-gradient-to-b from-black w-full h-1/4 absolute"></div>
+            <div class="bg-gradient-to-t from-white w-full h-1/4 absolute transform translate-y-full mt-1"></div>
+        {% endif %}
     </div>
-    <div class="container fixed left-1/2 transform -translate-x-1/2 mx-auto block h-96">
-        {% include "navbar.html" %}
-    </div>
+    {% include "navbar.html" %}
 </div>
 </header>

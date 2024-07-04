@@ -1,55 +1,37 @@
-<!DOCTYPE HTML>
-
-<html>
-<head>
-    <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styles_output.css') }}">
-</head>
-<body>
-
-<div class="flex flex-col">
-    <div>
-        <img src="static/images/parisdemo.jpg" alt="a protester throwing a stone during May '68 uprising in Paris"
-             class="fixed w-full h-2/3 object-cover object-top">
-        <div class="bg-gradient-to-b from-black w-full h-1/3 fixed"></div>
-        <div class="bg-gradient-to-t from-white w-full h-1/3 fixed transform translate-y-full mt-1"></div>
-    </div>
-    <div class="container fixed left-1/2 transform -translate-x-1/2 mx-auto block h-96">
-        {% include "navbar.html" %}
-    </div>
-    <h1
-            class="text-6xl font-extrabold font-sans text-white fixed top-48 left-1/2 transform -translate-x-1/2 z-20"
-    >Login</h1>
-    <div class="container absolute left-1/2 transform -translate-x-1/2 top-[25rem] z-10">
-        <form method="POST" action="{{ url_for('login') }}" novalidate>
-			{{ form.csrf_token }}
-            <div class="w-1/3 min-w-80 h-full mx-auto shadow-xl m-12 p-12 bg-gray-100 rounded-lg flex flex-col">
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <ul class="flashes list-none text-center">
-                    {% for message in messages %}
-                    <li class="text-danger">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-                {% endwith %}
-
-                {{ form.email.label }}
-                {{ form.email(size=30, class="mt-2 mb-4 ps-2 border border-solid border-black rounded-md") }}
-                {% for err in form.email.errors %}
-                    <span class="text-red-600 -mt-2 mb-3">{{ err }}</span>
+{% extends "base.html" %}
+{% block content %}
+<h1
+        class="text-6xl font-extrabold font-sans text-white fixed top-48 left-1/2 transform -translate-x-1/2 z-20"
+>Login</h1>
+<div class="container absolute left-1/2 transform -translate-x-1/2 top-[22rem] z-10">
+    <form method="POST" action="{{ url_for('main.login') }}" novalidate>
+        {{ form.csrf_token }}
+        <div class="w-1/3 min-w-80 h-full mx-auto shadow-xl m-12 p-12 bg-black/20 rounded-lg flex flex-col">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class="flashes list-none text-center">
+                {% for message in messages %}
+                <li class="text-danger">{{ message }}</li>
                 {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
 
-                {{ form.password.label }}
-                {{ form.password(size=30, class="mt-2 mb-4 ps-2 border border-solid border-black rounded-md") }}
-                {% for err in form.password.errors %}
-                    <span class="text-red-600 -mt-2 mb-3">{{ err }}</span>
-                {% endfor %}
+            {{ form.email.label }}
+            {{ form.email(size=30, class="mt-2 mb-4 ps-2 border border-solid border-black rounded-md") }}
+            {% for err in form.email.errors %}
+            <span class="text-red-600 -mt-2 mb-3">{{ err }}</span>
+            {% endfor %}
 
-                {{ form.submit(size=30, class="bg-red-400 hover:bg-red-300 rounded-lg text-white font-bold mt-3 transition-all") }}
-            </div>
-        </form>
-    </div>
+            {{ form.password.label }}
+            {{ form.password(size=30, class="mt-2 mb-4 ps-2 border border-solid border-black rounded-md") }}
+            {% for err in form.password.errors %}
+            <span class="text-red-600 -mt-2 mb-3">{{ err }}</span>
+            {% endfor %}
+
+            {{ form.submit(size=30, class="bg-red-400 hover:bg-red-300 rounded-lg text-white font-bold mt-3
+            transition-all") }}
+        </div>
+    </form>
 </div>
-</body>
-</html>
+{% endblock %}

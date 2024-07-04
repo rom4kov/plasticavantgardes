@@ -1,44 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ post['title'][:40] }}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styles_output.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
 <div>
-    <div>
-        <img src="../static/images/parisdemo.jpg" alt="a protester throwing a stone during May '68 uprising in Paris"
-             class="fixed w-full h-2/3 object-cover object-top">
-        <div class="bg-gradient-to-b from-black w-full h-1/3 fixed"></div>
-        <div class="bg-gradient-to-t from-white w-full h-1/3 fixed transform translate-y-full mt-1"></div>
-    </div>
-    <div class="container fixed left-1/2 transform -translate-x-1/2 mx-auto block h-96">
-        {% include "navbar.html" %}
-    </div>
     <h1
-            class="text-6xl font-extrabold font-sans relative top-48 text-white text-center mb-5"
+            class="w-2/5 mx-auto block text-5xl font-extrabold font-sans relative top-56 text-white text-start mb-5"
     >{{ post['title'] }}</h1>
-    <h2 class="text-2xl font-extrabold font-sans relative top-52 text-white text-center">{{ post['subtitle'] }}</h2>
-    <p class="w-1/3 block font-extrabold font-sans relative top-56 mx-auto text-white text-center">
-        Posted by <span class="text-red-400">{{ post['author']['name'] }}</span> on {{ post['date'] }}
+    <h2 class="w-2/5 mx-auto text-2xl font-extrabold font-sans relative top-56 text-white text-start">{{ post['subtitle'] }}</h2>
+    <p class="w-2/5 mx-auto block font-extrabold font-sans relative top-64 mx-auto text-white text-start">
+        Posted by <span class="text-white underline">{{ post['author']['name'] }}</span> on {{ post['date'] }}
     </p>
-    <div class="w-2/5 h-full mx-auto shadow-xl relative top-[20rem] mb-[40rem] p-5 bg-gray-100 rounded-lg">
+    <div class="w-2/5 h-full mx-auto text-lg relative top-[23rem] mb-[40rem] rounded-xl font-bold">
         {{ post['body'] | safe }}
+        {% if post.comments: %}
+        <div class="mt-8 font-bold">
+            <h4 class="mb-3 text-lg">{{ post.comments|length }} Comment(s)</h4>
+            {% for comment in post.comments: %}
+            <div class="p-5 border border-slate-300 rounded-xl">
+                <h5 class="text-base font-bold mb-3">{{ comment.author.name }} commented on {{ comment.date }}:</h5>
+                <div id="comment">
+                    {{ comment.body | safe }}
+                </div>
+                {% if current_user.id == comment.author.id: %}
+                <button class="mt-3 text-sm">Delete</button>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
         <div class="mt-5">
             {% if current_user.is_authenticated: %}
-            <button class="pe-2 underline" id="comment">Comment</button>
+            <button class="pe-2 underline" id="comment-btn">Comment</button>
             {% endif %}
             {% if current_user.is_authenticated and current_user.id == 1: %}
-            <a href="{{ url_for('edit_post', post_id=post['id'], heading='Edit Post') }}" class="underline">Edit Post</a>
+            <a href="{{ url_for('main.edit_post', post_id=post['id'], heading='Edit Post') }}" class="underline">Edit Post</a>
             {% endif %}
             <a href="/" class="ps-2 underline">Go back to home</a>
         </div>
         {% if current_user.is_authenticated: %}
-        <form action="/post/{{ post.id }}" method="POST" class="mt-8" id="comment-field" style="display: none">
+        <form action="{{ url_for('main.get_post', post_id=post.id) }}" method="POST" class="mt-8" id="comment-field" style="display: none">
             {{ form.csrf_token }}
-            {{ ckeditor.create() }}
+            {{ form.body }}
             {{ form.submit(class="w-36 mt-5 ms-auto ps-0 rounded-lg bg-red-400 hover:bg-red-300 text-white
             font-extrabold leading-8 transition duration-300 cursor-pointer") }}
         </form>
@@ -46,7 +46,7 @@
     </div>
 </div>
 <script>
-    const commentBtn = document.querySelector('#comment');
+    const commentBtn = document.querySelector('#comment-btn');
     commentBtn.addEventListener('click', () => {
         const commentField = document.querySelector('#comment-field');
         if (commentField.style.display === "none") {
@@ -57,6 +57,4 @@
     })
 </script>
 {{ ckeditor.load() }}
-</body>
-{% include "footer.html" %}
-</html>
+{% endblock %}

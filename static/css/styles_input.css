@@ -84,3 +84,9 @@ footer {
 #cke_notifications_area_ckeditor {
   display: none;
 }
+
+#comment p {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.1rem;
+}

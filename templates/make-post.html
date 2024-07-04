@@ -10,9 +10,9 @@
         <h2 class="text-xl text-red-500 text-center font-extrabold mb-5">Writing is part of the class struggle</h2>
         <form action="
                 {% if post: %}
-                {{ url_for('edit_post', post_id=post.id) }}
+                {{ url_for('main.edit_post', post_id=post.id) }}
                 {% else: %}
-                {{ url_for('new_post') }}
+                {{ url_for('main.new_post') }}
                 {% endif %}
                 "
               method="POST" class="text-start w-full flex flex-col">
