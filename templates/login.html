@@ -7,7 +7,7 @@
     <form method="POST" action="{{ url_for('main.login') }}" novalidate>
         {{ form.csrf_token }}
         <div class="w-1/3 min-w-80 h-full mx-auto shadow-xl m-12 p-12 bg-black/20 rounded-lg flex flex-col">
-            <p class="hidden mb-5 text-sm" id="custom-flash-message"></p>
+            <p class="hidden mb-5" id="custom-flash-message"></p>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             <ul class="flashes list-none text-center">

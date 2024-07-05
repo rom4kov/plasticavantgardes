@@ -1,6 +1,7 @@
 from flask import Flask
 from extensions import login_manager, db, ckeditor
-from routes import bp, login_manager
+from routes import bp
+from flask_gravatar import Gravatar
 
 
 def create_app():
@@ -11,6 +12,8 @@ def create_app():
     db.init_app(flask_app)
     login_manager.init_app(flask_app)
     ckeditor.init_app(flask_app)
+
+    gravatar = Gravatar(flask_app, size=50, rating='g', default='retro')
 
     flask_app.register_blueprint(bp)
 

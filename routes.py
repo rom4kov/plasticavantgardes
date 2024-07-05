@@ -8,7 +8,6 @@ from extensions import db, login_manager
 from models import User, BlogPost, Comment
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 import bleach
-import json
 
 bp = Blueprint('main', __name__)
 
@@ -99,7 +98,7 @@ def unauthorized_callback():
         # For AJAX/JSON requests, return a JSON response
         return jsonify({
             'redirect': url_for('main.login'),
-            'message': 'Please log in or register to like posts.'
+            'message': 'Please log in or register to like posts and comments.'
         }), 401
     else:
         flash('You need to be logged in to access this page.')
