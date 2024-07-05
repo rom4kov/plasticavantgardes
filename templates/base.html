@@ -13,11 +13,9 @@
         const navbar = document.querySelector("nav.w-full");
         window.addEventListener("scroll", () => {
             if (window.scrollY >= 100) {
-                navbar.classList.add("bg-black");
-                console.log(window.scrollY);
-                console.log("scrollHeight higher than 300");
+                navbar.classList.add("bg-black/70", "backdrop-blur-sm");
             } else {
-                navbar.classList.remove("bg-black")
+                navbar.classList.remove("bg-black/70", "backdrop-blur-sm")
             }
         })
     </script>

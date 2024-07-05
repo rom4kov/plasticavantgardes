@@ -1,59 +1,229 @@
 {% extends "base.html" %}
 {% block content %}
 <div>
-    <h1
-            class="w-2/5 mx-auto block text-5xl font-extrabold font-sans relative top-56 text-white text-start mb-5"
-    >{{ post['title'] }}</h1>
-    <h2 class="w-2/5 mx-auto text-2xl font-extrabold font-sans relative top-56 text-white text-start">{{ post['subtitle'] }}</h2>
-    <p class="w-2/5 mx-auto block font-extrabold font-sans relative top-64 mx-auto text-white text-start">
-        Posted by <span class="text-white underline">{{ post['author']['name'] }}</span> on {{ post['date'] }}
-    </p>
-    <div class="w-2/5 h-full mx-auto text-lg relative top-[23rem] mb-[40rem] rounded-xl font-bold">
+    <div class="w-full h-[50vh] flex flex-col justify-end">
+        <h1 class="w-2/5 mx-auto block relative text-5xl font-extrabold font-sans text-white text-start mb-5"
+        >{{ post['title'] }}</h1>
+        <h2 class="w-2/5 mx-auto text-2xl relative font-extrabold font-sans text-white text-start">{{
+            post['subtitle'] }}</h2>
+        <p class="w-2/5 mt-5 mb-12 mx-auto block relative font-extrabold font-sans mx-auto text-white text-start">
+            Posted by <span class="text-white underline">{{ post['author']['name'] }}</span> on {{ post['date'] }}
+        </p>
+    </div>
+    <div class="w-2/5 h-full mx-auto text-lg relative top-[3rem] mb-[40rem] rounded-xl font-bold">
         {{ post['body'] | safe }}
-        {% if post.comments: %}
-        <div class="mt-8 font-bold">
-            <h4 class="mb-3 text-lg">{{ post.comments|length }} Comment(s)</h4>
-            {% for comment in post.comments: %}
-            <div class="p-5 border border-slate-300 rounded-xl">
-                <h5 class="text-base font-bold mb-3">{{ comment.author.name }} commented on {{ comment.date }}:</h5>
-                <div id="comment">
-                    {{ comment.body | safe }}
-                </div>
-                {% if current_user.id == comment.author.id: %}
-                <button class="mt-3 text-sm">Delete</button>
+        <div class="mt-5 flex">
+            <button id="like-button" class="h-5 me-3 mb-1 mt-[0.1rem] flex items-center hover:text-red-400"
+                    data-user-authenticated="{{ current_user.is_authenticated|tojson }}">
+                <span class="font-mono">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="
+                         {% if current_user not in post.likes: %}
+                         none
+                         {% else: %}
+                         currentColor
+                         {% endif %}
+                         "
+                         viewBox="0 0 24 24" stroke-width="1.5"
+                         stroke="currentColor" id="heart"
+                         class="size-6 w-5 h-5 me-1 mt-[0.1rem] hover:text-red-400 transition-color duration-200">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/>
+                    </svg>
+                </span>
+                <span class="leading-r me-1 text-lg font-normal font-sans hover:text-red-400 transition-color duration-200"
+                      id="like-count">
+                      {% if post.likes|length > 0: %}
+                      {{ post.likes|length }}
+                      {% endif %}
+                </span>
+            </button>
+            <button class="h-5 me-3 mb-1 mt-[0.1rem] flex items-start hover:text-red-400" id="comment-btn">
+                <span class="font-mono">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                         stroke="currentColor"
+                         class="size-6 w-5 h-5 me-1 hover:text-red-400 transition-color duration-200">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"/>
+                    </svg>
+                </span>
+                {% if post.comments|length > 0: %}
+                <span class="leading-5 me-1 text-lg font-normal font-sans hover:text-red-400 transition-color duration-200">
+                    {{ post.comments|length }}
+                </span>
                 {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-        <div class="mt-5">
-            {% if current_user.is_authenticated: %}
-            <button class="pe-2 underline" id="comment-btn">Comment</button>
-            {% endif %}
+            </button>
             {% if current_user.is_authenticated and current_user.id == 1: %}
-            <a href="{{ url_for('main.edit_post', post_id=post['id'], heading='Edit Post') }}" class="underline">Edit Post</a>
+            <a href="{{ url_for('main.edit_post', post_id=post['id'], heading='Edit Post') }}"
+               class="me-2 mt-[0.2rem] underline text-sm">Edit Post
+            </a>
             {% endif %}
-            <a href="/" class="ps-2 underline">Go back to home</a>
+            <a href="/" class="mt-[0.2rem] ps-2 text-sm underline">Go back to home</a>
         </div>
-        {% if current_user.is_authenticated: %}
-        <form action="{{ url_for('main.get_post', post_id=post.id) }}" method="POST" class="mt-8" id="comment-field" style="display: none">
-            {{ form.csrf_token }}
-            {{ form.body }}
-            {{ form.submit(class="w-36 mt-5 ms-auto ps-0 rounded-lg bg-red-400 hover:bg-red-300 text-white
-            font-extrabold leading-8 transition duration-300 cursor-pointer") }}
-        </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes list-none text-center mt-5">
+            {% for message in messages %}
+            <li class="text-danger">{{ message }}</li>
+            {% endfor %}
+        </ul>
         {% endif %}
+        {% endwith %}
+        <div id="comment-field" class="opacity-0 transition-opacity duration-300 select-none">
+            {% if current_user.is_authenticated: %}
+            <form action="{{ url_for('main.get_post', post_id=post.id) }}" method="POST" class="mt-8">
+                {{ form.csrf_token }}
+                {{ form.body }}
+                {{ form.submit(class="w-36 mt-5 ms-auto ps-0 rounded-lg bg-red-400 hover:bg-red-300 text-white
+                font-extrabold leading-8 transition duration-300 cursor-pointer") }}
+            </form>
+            {% endif %}
+            {% if post.comments: %}
+            <div class="mt-8 font-bold">
+                <h4 class="mb-3 text-lg">{{ post.comments|length }} Comment(s)</h4>
+                {% for comment in post.comments: %}
+                <div class="mb-5 p-5 border border-slate-300 rounded-xl">
+                    <h5 class="text-base font-bold mb-3">{{ comment.author.name }} commented on {{ comment.date }}:</h5>
+                    <div id="comment">
+                        {{ comment.body | safe }}
+                    </div>
+                    <div class="flex">
+                        <button id="comment-like-button" data-comment-id="{{ comment.id }}"
+                                class="h-5 me-3 mb-1 mt-3 flex items-center hover:text-red-400">
+                            <span class="font-mono">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="
+                                     {% if current_user not in comment.likes: %}
+                                     none
+                                     {% else: %}
+                                     currentColor
+                                     {% endif %}
+                                     "
+                                     viewBox="0 0 24 24" stroke-width="1.5"
+                                     stroke="currentColor" id="comment-heart"
+                                     class="size-6 w-5 h-5 me-1 mt-[0.1rem] hover:text-red-400 transition-color duration-200">
+                                      <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/>
+                                </svg>
+                            </span>
+                            <span class="leading-r me-1 text-lg font-normal font-sans hover:text-red-400 transition-color duration-200"
+                                  id="comment-like-count">
+                                {% if comment.likes|length > 0: %}
+                                {{ comment.likes|length }}
+                                {% endif %}
+                            </span>
+                        </button>
+                        {% if current_user.id == comment.author.id: %}
+                        <button class="mt-3 text-sm">Delete</button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
     </div>
 </div>
 <script>
     const commentBtn = document.querySelector('#comment-btn');
     commentBtn.addEventListener('click', () => {
         const commentField = document.querySelector('#comment-field');
-        if (commentField.style.display === "none") {
-            commentField.style.display = "block";
+        if (commentField.classList.contains("opacity-0")) {
+            commentField.classList.replace("opacity-0", "opacity-100");
         } else {
-            commentField.style.display = "none";
+            commentField.classList.replace("opacity-100", "opacity-0");
         }
+    })
+</script>
+<script>
+    const likeButton = document.querySelector("#like-button")
+    const heart = document.querySelector("#heart");
+    const likeCount = document.getElementById('like-count');
+    likeButton.addEventListener("click", () => {
+        if (likeButton.dataset.userAuthenticated === 'true') {
+            fetch("/like-post/{{ post.id }}", {
+                method: "POST"
+            })
+                .then(response => response.json())
+                .then(data => {
+                let user_ids = [];
+                for (const user of data.new_value) {
+                    user_ids.push(user.id);
+                }
+                if (data.new_value.length === 0) {
+                    likeCount.innerText = "";
+                    heart.style.fill = "none"
+                } else if (data.new_value.length > 0 && !user_ids.includes(data.user_id)) {
+                    likeCount.innerText = data.new_value.length;
+                    heart.style.fill = "none"
+                } else {
+                    likeCount.innerText = data.new_value.length;
+                    heart.style.fill = "currentColor"
+                }
+            })
+                .catch(error => {
+                console.error('Error:', error);
+            });
+        } else {
+            console.log("Please log in or register to like posts.")
+            fetch("/like-post/{{ post.id }}", {
+                method: "POST",
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+                .then(response => {
+                if (response.status === 401) {
+                    return response.json().then(data => {
+                        if (data.redirect) {
+                            // Store the flash message in session storage
+                            sessionStorage.setItem('flashMessage', data.message);
+                            // Redirect the browser to the login page
+                            window.location.href = data.redirect;
+                        }
+                    });
+                } else if (response.redirected) {
+                    console.log(response)
+                    window.location.href = data.redirect;
+                } else {
+                    return response.text();
+                }
+            })
+                .then(data => {
+                if (data) {
+                    // Handle the data returned from the server if not redirected
+                    console.log(data);
+                }
+            })
+        }
+    })
+
+    const commentLikeButton = document.querySelector("#comment-like-button")
+    const commentHeart = document.querySelector("#comment-heart");
+    const commentLikeCount = document.getElementById('comment-like-count');
+    const commentId = commentLikeButton.dataset.commentId;
+    commentLikeButton.addEventListener("click", () => {
+        fetch(`/like-comment/${commentId}`, {
+            method: "POST"
+        })
+            .then(response => response.json())
+            .then(data => {
+            let user_ids = [];
+            for (const user of data.new_value) {
+                user_ids.push(user.id);
+            }
+            if (data.new_value.length === 0) {
+                commentLikeCount.innerText = "";
+                commentHeart.style.fill = "none"
+            } else if (data.new_value.length > 0 && !user_ids.includes(data.user_id)) {
+                commentLikeCount.innerText = data.new_value.length;
+                commentHeart.style.fill = "none"
+            } else {
+                commentLikeCount.innerText = data.new_value.length;
+                commentHeart.style.fill = "currentColor"
+            }
+        })
+            .catch(error => {
+            console.error('Error:', error);
+        });
     })
 </script>
 {{ ckeditor.load() }}

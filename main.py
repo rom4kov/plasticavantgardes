@@ -14,8 +14,8 @@ def create_app():
 
     flask_app.register_blueprint(bp)
 
-    # with flask_app.app_context():
-    #     db.create_all()
+    with flask_app.app_context():
+        db.create_all()
 
     return flask_app
 

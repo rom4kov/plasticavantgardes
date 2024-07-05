@@ -1,5 +1,4 @@
-from models import db
-from flask import Blueprint, redirect, render_template, request, url_for, session, flash
+from flask import Blueprint, redirect, render_template, request, url_for, session, flash, jsonify
 from flask_login import login_required, login_user, logout_user, current_user
 from datetime import datetime
 from smtplib import SMTP
@@ -9,6 +8,7 @@ from extensions import db, login_manager
 from models import User, BlogPost, Comment
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 import bleach
+import json
 
 bp = Blueprint('main', __name__)
 
@@ -78,24 +78,32 @@ def get_post(post_id):
             blog_post_id=post.id,
             author=current_user,
             author_id=current_user.id,
-            date=date
+            date=date,
+            likes=[]
         )
         db.session.add(new_comment)
         db.session.commit()
-        return redirect(url_for("get_post", post_id=post_id))
+        return redirect(url_for("main.get_post", post_id=post_id))
     return render_template("post.html", post=post, comments=comments, form=form)
 
 
 @bp.errorhandler(401)
 def custom_401(error):
     print(error)
-    return redirect(url_for('home'))
+    return redirect(url_for('main.home'))
 
 
 @login_manager.unauthorized_handler
 def unauthorized_callback():
-    flash('You need to be logged in to access this page.')
-    return redirect(url_for('login'))
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        # For AJAX/JSON requests, return a JSON response
+        return jsonify({
+            'redirect': url_for('main.login'),
+            'message': 'Please log in or register to like posts.'
+        }), 401
+    else:
+        flash('You need to be logged in to access this page.')
+        return redirect(url_for('main.login'))
 
 
 def admin_only(function):
@@ -104,7 +112,7 @@ def admin_only(function):
             return function(*args, **kwargs)
         else:
             flash("You are not authorized to access this route.")
-            return redirect(url_for('home'))
+            return redirect(url_for('main.home'))
 
     wrapper.__name__ = function.__name__
     return wrapper
@@ -127,11 +135,11 @@ def new_post():
             author=current_user,
             author_id=current_user.id,
             date=date,
-            likes=0,
+            likes=[],
         )
         db.session.add(new_blogpost)
         db.session.commit()
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
     return render_template("make-post.html", form=form, heading=heading, image=image)
 
 
@@ -141,7 +149,7 @@ def new_post():
 def edit_post(post_id):
     post = db.session.execute(db.select(BlogPost).where(BlogPost.id == post_id)).scalar()
     if post is None:
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
     form = CreatePostForm(
         title=post.title,
         subtitle=post.subtitle,
@@ -161,17 +169,52 @@ def edit_post(post_id):
                 if new_value and new_value != str(getattr(post, field.name)):
                     setattr(post, field.name, new_value)
         db.session.commit()
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
     return render_template("make-post.html", form=form, post=post, heading=heading)
 
 
-@bp.route('/like-post/post_id')
+@bp.route('/like-post/<post_id>', methods=['GET', 'POST'])
 @login_required
 def like_post(post_id):
     post = db.session.execute(db.select(BlogPost).where(BlogPost.id == post_id)).scalar()
-    post.likes += 1
-    db.session.commit()
-    return redirect(url_for('get_post', post_id=post_id))
+    print(current_user.is_authenticated)
+    if not current_user.is_authenticated:
+        print("hello")
+        flash("Please log in or register to like posts.")
+        return jsonify(value=0)
+    elif current_user.is_authenticated and current_user not in post.likes:
+        post.likes.append(current_user)
+        db.session.commit()
+        post_with_new_likes = db.session.execute(db.select(BlogPost).where(BlogPost.id == post_id)).scalar()
+        likes = [user.to_dict() for user in post_with_new_likes.likes]
+        return jsonify(new_value=likes, user_id=current_user.id)
+    else:
+        post = db.session.execute(db.select(BlogPost).where(BlogPost.id == post_id)).scalar()
+        post.likes.remove(current_user)
+        db.session.commit()
+        post_with_new_likes = db.session.execute(db.select(BlogPost).where(BlogPost.id == post_id)).scalar()
+        likes = [user.to_dict() for user in post_with_new_likes.likes]
+        return jsonify(new_value=likes, user_id=current_user.id)
+
+
+@bp.route('/like-comment/<comment_id>', methods=['POST'])
+@login_required
+def like_comment(comment_id):
+    comment = db.session.execute(db.select(Comment).where(Comment.id == comment_id)).scalar()
+    if current_user not in comment.likes:
+        comment.likes.append(current_user)
+        db.session.commit()
+        comment_with_new_likes = db.session.execute(db.select(Comment).where(Comment.id == comment_id)).scalar()
+        likes = [user.to_dict() for user in comment_with_new_likes.likes]
+        return jsonify(new_value=likes, user_id=current_user.id)
+    else:
+        comment = db.session.execute(db.select(Comment).where(Comment.id == comment_id)).scalar()
+        comment.likes.remove(current_user)
+        db.session.commit()
+        comment_with_new_likes = db.session.execute(db.select(Comment).where(Comment.id == comment_id)).scalar()
+        likes = [user.to_dict() for user in comment_with_new_likes.likes]
+        print(current_user.id)
+        return jsonify(new_value=likes, user_id=current_user.id)
 
 
 @bp.route('/delete/<post_id>')
@@ -181,7 +224,7 @@ def delete(post_id):
     post_to_delete = db.session.execute(db.select(BlogPost).where(BlogPost.id == post_id)).scalar()
     db.session.delete(post_to_delete)
     db.session.commit()
-    return redirect(url_for('home'))
+    return redirect(url_for('main.home'))
 
 
 @bp.route('/register', methods=['GET', 'POST'])
@@ -200,13 +243,13 @@ def register():
             db.session.commit()
         except IntegrityError:
             flash("Someone already signed up with that email. If it's you, log in instead.")
-            return redirect(url_for('login'))
+            return redirect(url_for('main.login'))
         else:
             user = db.session.execute(db.select(User).where(User.email == request.form.get('email'))).scalar()
             session['username'] = user.name  # type: ignore
             login_user(user)
             flash("You were successfully registered")
-            return redirect(url_for('home'))
+            return redirect(url_for('main.home'))
     return render_template("register.html", form=form, image=image)
 
 
@@ -226,7 +269,7 @@ def login():
                 login_user(user)
                 session['username'] = user.name
                 flash('You have been successfully logged in.')
-                return redirect(url_for('home'))
+                return redirect(url_for('main.home'))
             else:
                 flash('Incorrect password. Please try again.')
         else:
@@ -239,4 +282,4 @@ def login():
 def logout():
     logout_user()
     flash('You have been successfully logged out.')
-    return redirect(url_for('home'))
+    return redirect(url_for('main.home'))
