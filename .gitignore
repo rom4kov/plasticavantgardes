@@ -3,3 +3,7 @@ downloads/
 .venv/
 static/images
 static/assets
+instance/blog.db
+.idea
+__pycache__
+.env

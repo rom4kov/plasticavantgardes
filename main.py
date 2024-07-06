@@ -2,12 +2,16 @@ from flask import Flask
 from extensions import login_manager, db, ckeditor
 from routes import bp
 from flask_gravatar import Gravatar
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def create_app():
     flask_app = Flask(__name__)
-    flask_app.secret_key = b'94551be546b23efeac0374ea76d056dfe962b1f0e928a2fcdd06d9bf8a717367'
-    flask_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+    flask_app.secret_key = os.environ.get('FLASK_KEY')
+    flask_app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI', 'sqlite:///blog.db')
 
     db.init_app(flask_app)
     login_manager.init_app(flask_app)
@@ -25,5 +29,5 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    app.secret_key = "Q!92;x(t9}u#K9U)#)b.=YtP3}e=o?VX*,j"
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     app.run(debug=True)
