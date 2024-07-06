@@ -28,7 +28,7 @@ def cleanify(text, *, allow_tags=None):
 
 @bp.route('/')
 def home():
-    image = "../static/images/uprising68.jpg"
+    image = "../static/images/worldpress.jpeg"
     all_posts = db.session.execute(db.select(BlogPost).order_by(BlogPost.date)).scalars()
     return render_template("index.html", posts=all_posts, image=image)
 
