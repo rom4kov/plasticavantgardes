@@ -8,26 +8,23 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def create_app():
-    flask_app = Flask(__name__)
-    flask_app.secret_key = os.environ.get('FLASK_KEY')
-    flask_app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI', 'sqlite:///blog.db')
+app = Flask(__name__)
 
-    db.init_app(flask_app)
-    login_manager.init_app(flask_app)
-    ckeditor.init_app(flask_app)
+app.secret_key = os.environ.get('FLASK_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI', 'sqlite:///blog.db')
 
-    gravatar = Gravatar(flask_app, size=50, rating='g', default='retro')
+db.init_app(app)
+login_manager.init_app(app)
+ckeditor.init_app(app)
 
-    flask_app.register_blueprint(bp)
+gravatar = Gravatar(app, size=50, rating='g', default='retro')
 
-    with flask_app.app_context():
-        db.create_all()
+app.register_blueprint(bp)
 
-    return flask_app
+with app.app_context():
+    db.create_all()
 
 
 if __name__ == "__main__":
-    app = create_app()
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     app.run(debug=True)
