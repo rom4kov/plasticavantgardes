@@ -4,7 +4,7 @@ from datetime import datetime
 from smtplib import SMTP
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
-from extensions import db, login_manager
+from extensions import app, db, login_manager
 from models import User, BlogPost, Comment
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 import bleach
@@ -30,7 +30,6 @@ def cleanify(text, *, allow_tags=None):
 def home():
     image = "../static/images/worldpress.jpeg"
     all_posts = db.session.execute(db.select(BlogPost).order_by(BlogPost.date)).scalars()
-    print(db)
     print(all_posts)
     return render_template("index.html", posts=all_posts, image=image)
 
@@ -69,6 +68,7 @@ def contact():
 @bp.route('/posts/<post_id>', methods=['GET', 'POST'])
 def get_post(post_id):
     post = db.session.execute(db.select(BlogPost).where(BlogPost.id == post_id)).scalar()
+    print(post.title)
     comments = db.session.execute(db.select(Comment).where(Comment.blog_post_id == post_id)).scalars()
     form = CommentForm()
     date = datetime.now().date().strftime("%B %d, %Y")

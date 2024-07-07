@@ -6,34 +6,35 @@
 >Exploring the Intersection of Art, Philosophy, and Revolution</h1>
 <div class="container absolute left-1/2 transform -translate-x-1/2 top-1/2 z-10 pb-[10rem]">
     {% for post in posts: %}
-    <div class="w-2/3 h-full mx-auto m-12 p-5 rounded-lg article-card">
-        <div class="text-gray-500 hover:text-red-400">
-            <h2 class="text-4xl text-inherit font-extrabold font-sans mb-3">{{ post["title"] }}</h2>
-            <p class="text-xl font-extrabold">{{ post["subtitle"] }}</p>
+        {% print(post.title) %}
+        <div class="w-2/3 h-full mx-auto m-12 p-5 rounded-lg article-card">
+            <div class="text-gray-500 hover:text-red-400">
+                <h2 class="text-4xl text-inherit font-extrabold font-sans mb-3">{{ post["title"] }}</h2>
+                <p class="text-xl font-extrabold">{{ post["subtitle"] }}</p>
+            </div>
+            <p class="text mt-2">Posted by {{ post["author"]["name"] }} on {{ post.date }}</p>
+            <div class="flex gap-3">
+                <a href="{{ url_for('main.get_post', post_id=post['id']) }}" class="underline mt-3 block">Read</a>
+                {% if current_user and current_user.id == 1: %}
+                <a href="{{ url_for('main.delete', post_id=post['id']) }}" class="underline mt-3 block">✘</a>
+                {% endif %}
+            </div>
         </div>
-        <p class="text mt-2">Posted by {{ post["author"]["name"] }} on {{ post.date }}</p>
-        <div class="flex gap-3">
-            <a href="{{ url_for('main.get_post', post_id=post['id']) }}" class="underline mt-3 block">Read</a>
-            {% if current_user and current_user.id == 1: %}
-            <a href="{{ url_for('main.delete', post_id=post['id']) }}" class="underline mt-3 block">✘</a>
-            {% endif %}
-        </div>
-    </div>
     {% endfor %}
     {% if current_user and current_user.id == 1: %}
-    <p class="w-48 mx-auto rounded-xl text-sm text-center text-white font-extrabold leading-6 bg-red-400
-              hover:bg-red-300 transition-all duration-200 cursor-pointer">
-        <a href="{{ url_for('main.new_post', heading='New Post') }}">Write a new blog post</a>
-    </p>
+        <p class="w-48 mx-auto rounded-xl text-sm text-center text-white font-extrabold leading-6 bg-red-400
+                  hover:bg-red-300 transition-all duration-200 cursor-pointer">
+            <a href="{{ url_for('main.new_post', heading='New Post') }}">Write a new blog post</a>
+        </p>
     {% endif %}
     {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul class="flashes list-none text-center mt-5">
-        {% for message in messages %}
-        <li class="text-danger">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+        {% if messages %}
+            <ul class="flashes list-none text-center mt-5">
+                {% for message in messages %}
+                <li class="text-danger">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% endwith %}
 </div>
 {% include "footer.html" %}

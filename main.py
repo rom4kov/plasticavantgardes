@@ -1,5 +1,4 @@
-from flask import Flask
-from extensions import login_manager, db, ckeditor
+from extensions import app, login_manager, db, ckeditor
 from routes import bp
 from flask_gravatar import Gravatar
 import os
@@ -7,8 +6,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
-app = Flask(__name__)
 
 app.secret_key = os.environ.get('FLASK_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI', 'sqlite:///blog.db')
