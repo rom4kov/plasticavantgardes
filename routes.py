@@ -30,6 +30,8 @@ def cleanify(text, *, allow_tags=None):
 def home():
     image = "../static/images/worldpress.jpeg"
     all_posts = db.session.execute(db.select(BlogPost).order_by(BlogPost.date)).scalars()
+    print(db)
+    print(all_posts)
     return render_template("index.html", posts=all_posts, image=image)
 
 
