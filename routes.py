@@ -78,7 +78,9 @@ def get_post(post_id):
             author=current_user,
             author_id=current_user.id,
             date=date,
-            likes=[]
+            likes=[],
+            replied_to_id=None,
+            replies=[]
         )
         db.session.add(new_comment)
         db.session.commit()
@@ -212,7 +214,6 @@ def like_comment(comment_id):
         db.session.commit()
         comment_with_new_likes = db.session.execute(db.select(Comment).where(Comment.id == comment_id)).scalar()
         likes = [user.to_dict() for user in comment_with_new_likes.likes]
-        print(current_user.id)
         return jsonify(new_value=likes, user_id=current_user.id)
 
 
@@ -224,6 +225,25 @@ def delete(post_id):
     db.session.delete(post_to_delete)
     db.session.commit()
     return redirect(url_for('main.home'))
+
+
+@bp.route('/delete-comment/<comment_id>')
+@login_required
+def delete_comment(comment_id):
+    comment_to_delete = db.session.execute(db.select(Comment).where(Comment.id == comment_id)).scalar()
+    if current_user.id == comment_to_delete.author_id:
+        db.session.delete(comment_to_delete)
+        db.session.commit()
+        return redirect(url_for('main.get_post', post_id=comment_to_delete.blog_post_id))
+    else:
+        return redirect(url_for('main.get_post', post_id=comment_to_delete.blog_post_id))
+
+
+@bp.route('/get-comment-replies/<comment_id>')
+def get_comment_replies(comment_id):
+    comment = db.session.execute(db.select(Comment).where(Comment.id == comment_id)).scalar()
+    replies = [reply.to_dict() for reply in comment.replies]
+    return jsonify(replies=replies)
 
 
 @bp.route('/register', methods=['GET', 'POST'])
