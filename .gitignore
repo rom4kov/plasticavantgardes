@@ -1,7 +1,6 @@
 node_modules/
 downloads/
 .venv/
-static/images
 static/assets
 instance/blog.db
 .idea
