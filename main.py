@@ -22,8 +22,8 @@ gravatar = Gravatar(app, size=50, rating='g', default='retro')
 
 app.register_blueprint(bp)
 
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
 
 
 if __name__ == "__main__":
