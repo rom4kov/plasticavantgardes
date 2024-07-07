@@ -30,7 +30,6 @@ def cleanify(text, *, allow_tags=None):
 def home():
     image = "../static/images/worldpress.jpeg"
     all_posts = db.session.execute(db.select(BlogPost).order_by(BlogPost.date)).scalars()
-    print(all_posts)
     return render_template("index.html", posts=all_posts, image=image)
 
 
@@ -47,7 +46,6 @@ def contact():
         email = "aaronfeininger@gmail.com"
         password = 'svnsqsyfwnzwjahl'
         data = request.form
-
         with SMTP("smtp.gmail.com", port=587) as connection:
             connection.starttls()
             connection.login(user=email, password=password)
