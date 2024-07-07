@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 app.secret_key = os.environ.get('FLASK_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI', 'sqlite:///blog.db')
+print(os.environ.get('DB_URI'))
 
 db.init_app(app)
 login_manager.init_app(app)
