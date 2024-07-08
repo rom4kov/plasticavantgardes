@@ -14,7 +14,8 @@
         {{ post['body'] | safe }}
         <div class="mt-5 flex">
             <button id="like-button" class="h-5 me-3 mb-1 mt-[0.1rem] flex items-center hover:text-red-400"
-                    data-user-authenticated="{{ current_user.is_authenticated|tojson }}">
+                    data-user-authenticated="{{ current_user.is_authenticated|tojson }}"
+                    data-post-id="{{ post.id }}">
                 <span class="font-mono">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="
                          {% if current_user not in post.likes: %}
@@ -68,7 +69,7 @@
         </ul>
         {% endif %}
         {% endwith %}
-        <div id="comment-field" class="opacity-0 transition-opacity duration-300 select-none">
+        <div id="comment-field" class="opacity-0 transition-opacity duration-300">
             {% if current_user.is_authenticated: %}
             <form action="{{ url_for('main.get_post', post_id=post.id) }}" method="POST" class="mt-8">
                 {{ form.csrf_token }}
@@ -81,7 +82,8 @@
             <div class="mt-8 font-bold">
                 <h4 class="mb-3 text-lg">{{ post.comments|length }} Comment(s)</h4>
                 {% for comment in post.comments: %}
-                <div class="mb-5 p-5 border border-slate-300 rounded-xl flex">
+                {% if comment.replied_to_id == None: %}
+                <div class="mb-5 p-5 border border-slate-300 rounded-xl flex" id="comment-id-{{ comment.id }}">
                     <img src="{{ comment.author.email | gravatar }}" alt="" class="w-8 h-8 me-3 rounded-full">
                     <div>
                         <h5 class="text-base font-bold mb-3">
@@ -93,21 +95,21 @@
                             <button id="comment-like-button" data-comment-id="{{ comment.id }}"
                                     data-user-authenticated="{{ current_user.is_authenticated }}"
                                     class="h-5 me-3 mb-1 mt-3 flex items-center hover:text-red-400">
-                            <span class="font-mono">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="
-                                     {% if current_user not in comment.likes: %}
-                                     none
-                                     {% else: %}
-                                     currentColor
-                                     {% endif %}
-                                     "
-                                     viewBox="0 0 24 24" stroke-width="1.5"
-                                     stroke="currentColor" id="comment-heart"
-                                     class="size-6 w-5 h-5 me-1 mt-[0.1rem] hover:text-red-400 transition-color duration-200">
-                                      <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/>
-                                </svg>
-                            </span>
+                                <span class="font-mono">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="
+                                         {% if current_user not in comment.likes: %}
+                                         none
+                                         {% else: %}
+                                         currentColor
+                                         {% endif %}
+                                         "
+                                         viewBox="0 0 24 24" stroke-width="1.5"
+                                         stroke="currentColor" id="comment-heart"
+                                         class="size-6 w-5 h-5 me-1 mt-[0.1rem] hover:text-red-400 transition-color duration-200">
+                                          <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/>
+                                    </svg>
+                                </span>
                                 <span class="leading-r me-1 text-lg font-normal font-sans hover:text-red-400 transition-color duration-200"
                                       id="comment-like-count">
                                     {% if comment.likes|length > 0: %}
@@ -116,18 +118,20 @@
                                 </span>
                             </button>
                             <button class="h-5 me-3 mb-1 mt-3 flex items-start hover:text-red-400"
-                                    id="reply-btn" onclick="showReplies({{ comment.id }})">
+                                    id="reply-btn" data-comment-id="{{ comment.id }}">
                                 <span class="font-mono">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                         stroke-width="1.5"
                                          stroke="currentColor"
                                          class="size-6 w-5 h-5 me-1 hover:text-red-400 transition-color duration-200">
                                       <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"/>
                                     </svg>
                                 </span>
-                                {% if post.comments|length > 0: %}
-                                <span class="leading-5 me-1 text-lg font-normal font-sans hover:text-red-400 transition-color duration-200">
-                                    {{ post.comments|length }}
+                                {% if comment.replies|length > 0: %}
+                                <span class="leading-5 me-1 text-lg font-normal font-sans hover:text-red-400 transition-color duration-200"
+                                      id="replies-count">
+                                    {{ comment.replies|length }}
                                 </span>
                                 {% endif %}
                             </button>
@@ -139,8 +143,39 @@
                             </button>
                             {% endif %}
                         </div>
+                        <div class="mb-2" id="replies">
+                            <div class="mt-5 flex hidden" id="template-reply">
+                                <img src="{{ current_user.email | gravatar }}" alt="" class="w-8 h-8 me-3 rounded-full">
+                                <div>
+                                    <h6 class="text-sm font-bold mb-2">{{ current_user.name }} replied on {{ date }}:</h6>
+                                    <p class="text-sm font-light"></p>
+                                </div>
+                            </div>
+                            {% for reply in comment.replies: %}
+                            <div class="mt-5 flex" id="reply-id-{{ reply.id }}">
+                                <img src="{{ reply.author.email | gravatar }}" alt="" class="w-8 h-8 me-3 rounded-full">
+                                <div>
+                                    <h6 class="text-sm font-bold mb-2">{{ reply.author.name }} replied on {{ reply.date }}:</h6>
+                                    <p class="text-sm font-light">
+                                        {{ reply.body | safe }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="mt-8 hidden w-full border border border-slate-300 rounded-xl text-sm"
+                             id="reply-to-{{ comment.id }}">
+                            <textarea name="reply" rows="3" placeholder="Write a reply..." style="resize: none"
+                                      class="text-sm w-full p-3 rounded-xl focus:outline-none" id="textarea-{{ comment.id }}"
+                            ></textarea>
+                            <button class="w-16 block p-1 ml-auto bg-red-400 hover:bg-red-300 m-3 text-sm text-white rounded-full"
+                                    id="submit-reply-btn" onclick="replyToComment({{ comment.id }})">
+                                Reply
+                            </button>
+                        </div>
                     </div>
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
             {% endif %}
@@ -158,137 +193,7 @@
         }
     })
 </script>
-<script>
-    const likeButton = document.querySelector("#like-button")
-    const heart = document.querySelector("#heart");
-    const likeCount = document.getElementById('like-count');
-    likeButton.addEventListener("click", () => {
-        if (likeButton.dataset.userAuthenticated === 'true') {
-            fetch("/like-post/{{ post.id }}", {
-                method: "POST"
-            })
-                .then(response => response.json())
-                .then(data => {
-                let user_ids = [];
-                for (const user of data.new_value) {
-                    user_ids.push(user.id);
-                }
-                if (data.new_value.length === 0) {
-                    likeCount.innerText = "";
-                    heart.style.fill = "none"
-                } else if (data.new_value.length > 0 && !user_ids.includes(data.user_id)) {
-                    likeCount.innerText = data.new_value.length;
-                    heart.style.fill = "none"
-                } else {
-                    likeCount.innerText = data.new_value.length;
-                    heart.style.fill = "currentColor"
-                }
-            })
-                .catch(error => {
-                console.error('Error:', error);
-            });
-        } else {
-            console.log("Please log in or register to like posts.")
-            fetch("/like-post/{{ post.id }}", {
-                method: "POST",
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-                .then(response => {
-                if (response.status === 401) {
-                    return response.json().then(data => {
-                        if (data.redirect) {
-                            // Store the flash message in session storage
-                            sessionStorage.setItem('flashMessage', data.message);
-                            // Redirect the browser to the login page
-                            window.location.href = data.redirect;
-                        }
-                    });
-                } else if (response.redirected) {
-                    console.log(response)
-                    window.location.href = data.redirect;
-                } else {
-                    return response.text();
-                }
-            })
-                .then(data => {
-                if (data) {
-                    // Handle the data returned from the server if not redirected
-                    console.log(data);
-                }
-            })
-        }
-    })
-
-    const commentLikeButtons = document.querySelectorAll("#comment-like-button")
-    for (const btn of commentLikeButtons) {
-        const commentId = btn.dataset.commentId;
-        const commentHeart = btn.children[0].children[0];
-        const commentLikeCount = btn.children[1];
-        console.log(commentHeart);
-        btn.addEventListener("click", () => {
-            console.log(btn.dataset.userAuthenticated)
-            if (btn.dataset.userAuthenticated === 'True') {
-                fetch(`/like-comment/${commentId}`, {
-                    method: "POST"
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                    let user_ids = [];
-                    for (const user of data.new_value) {
-                        user_ids.push(user.id);
-                    }
-                    if (data.new_value.length === 0) {
-                        commentLikeCount.innerText = "";
-                        commentHeart.style.fill = "none"
-                    } else if (data.new_value.length > 0 && !user_ids.includes(data.user_id)) {
-                        commentLikeCount.innerText = data.new_value.length;
-                        commentHeart.style.fill = "none"
-                    } else {
-                        commentLikeCount.innerText = data.new_value.length;
-                        commentHeart.style.fill = "currentColor"
-                    }
-                })
-                    .catch(error => {
-                    console.error('Error:', error);
-                });
-            } else {
-                fetch(`/like-comment/${commentId}`, {
-                    method: "POST",
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                    .then(response => {
-                    if (response.status === 401) {
-                        return response.json().then(data => {
-                            if (data.redirect) {
-                                // Store the flash message in session storage
-                                sessionStorage.setItem('flashMessage', data.message);
-                                // Redirect the browser to the login page
-                                window.location.href = data.redirect;
-                            }
-                        });
-                    } else if (response.redirected) {
-                        console.log(response)
-                        window.location.href = data.redirect;
-                    } else {
-                        return response.text();
-                    }
-                })
-                    .then(data => {
-                    if (data) {
-                        // Handle the data returned from the server if not redirected
-                        console.log(data);
-                    }
-                })
-            }
-        })
-    }
-</script>
-<script>function showReplies(comment_id) {
-    alert(`Reply button function works! Comment ID: ${comment_id}`)
-}</script>
+<script src="../static/js/likeButton.js"></script>
+<script src="../static/js/replyToComment.js"></script>
 {{ ckeditor.load() }}
 {% endblock %}

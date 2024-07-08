@@ -67,7 +67,7 @@ class Comment(db.Model):
     author: Mapped["User"] = relationship(back_populates="comments")
     author_id: Mapped[int] = mapped_column(ForeignKey("user_table.id"))
     likes: Mapped[List["User"]] = relationship(secondary=comments_association_table, back_populates="liked_comments")
-    replied_to_id: Mapped[int] = mapped_column(ForeignKey("comment_table.id"))
+    replied_to_id: Mapped[int] = mapped_column(ForeignKey("comment_table.id"), nullable=True)
     replied_to: Mapped["Comment"] = relationship(back_populates="replies", remote_side=[id])
     replies: Mapped[List["Comment"]] = relationship(back_populates="replied_to")
 

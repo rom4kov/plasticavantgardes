@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, redirect, render_template, request, url_for, session, flash, jsonify
 from flask_login import login_required, login_user, logout_user, current_user
 from datetime import datetime
@@ -66,7 +68,6 @@ def contact():
 @bp.route('/posts/<post_id>', methods=['GET', 'POST'])
 def get_post(post_id):
     post = db.session.execute(db.select(BlogPost).where(BlogPost.id == post_id)).scalar()
-    print(post.title)
     comments = db.session.execute(db.select(Comment).where(Comment.blog_post_id == post_id)).scalars()
     form = CommentForm()
     date = datetime.now().date().strftime("%B %d, %Y")
@@ -85,7 +86,7 @@ def get_post(post_id):
         db.session.add(new_comment)
         db.session.commit()
         return redirect(url_for("main.get_post", post_id=post_id))
-    return render_template("post.html", post=post, comments=comments, form=form)
+    return render_template("post.html", post=post, comments=comments, form=form, date=date)
 
 
 @bp.errorhandler(401)
@@ -177,6 +178,7 @@ def edit_post(post_id):
 @bp.route('/like-post/<post_id>', methods=['GET', 'POST'])
 @login_required
 def like_post(post_id):
+    print(post_id)
     post = db.session.execute(db.select(BlogPost).where(BlogPost.id == post_id)).scalar()
     print(current_user.is_authenticated)
     if not current_user.is_authenticated:
@@ -237,6 +239,30 @@ def delete_comment(comment_id):
         return redirect(url_for('main.get_post', post_id=comment_to_delete.blog_post_id))
     else:
         return redirect(url_for('main.get_post', post_id=comment_to_delete.blog_post_id))
+
+
+@bp.route('/reply-to-comment/<comment_id>', methods=['POST'])
+@login_required
+def reply_to_comment(comment_id):
+    comment = db.session.execute(db.select(Comment).where(Comment.id == comment_id)).scalar()
+    date = datetime.now().date().strftime("%B %d, %Y")
+    data = request.get_json()
+    print(data)
+    new_comment_reply = Comment(
+        body=data['text'],
+        blog_post=comment.blog_post,
+        blog_post_id=comment.blog_post_id,
+        author=current_user,
+        author_id=current_user.id,
+        date=date,
+        likes=[],
+        replied_to_id=comment_id,
+        replies=[]
+    )
+    db.session.add(new_comment_reply)
+    db.session.commit()
+    new_reply = new_comment_reply.to_dict()
+    return jsonify(reply=new_reply)
 
 
 @bp.route('/get-comment-replies/<comment_id>')
