@@ -143,7 +143,8 @@
                             </button>
                             {% endif %}
                         </div>
-                        <div class="mb-2" id="replies">
+                        <div class="mt-8 mb-2 hidden" id="replies-{{ comment.id }}">
+                            {% if current_user.is_authenticated: %}
                             <div class="mt-5 flex hidden" id="template-reply">
                                 <img src="{{ current_user.email | gravatar }}" alt="" class="w-8 h-8 me-3 rounded-full">
                                 <div>
@@ -151,27 +152,30 @@
                                     <p class="text-sm font-light"></p>
                                 </div>
                             </div>
-                            {% for reply in comment.replies: %}
-                            <div class="mt-5 flex" id="reply-id-{{ reply.id }}">
-                                <img src="{{ reply.author.email | gravatar }}" alt="" class="w-8 h-8 me-3 rounded-full">
-                                <div>
-                                    <h6 class="text-sm font-bold mb-2">{{ reply.author.name }} replied on {{ reply.date }}:</h6>
-                                    <p class="text-sm font-light">
-                                        {{ reply.body | safe }}
-                                    </p>
+                            {% endif %}
+                            <div id="replies-inner-{{ comment.id }}">
+                                {% for reply in comment.replies: %}
+                                <div class="mt-5 flex" id="reply-id-{{ reply.id }}">
+                                    <img src="{{ reply.author.email | gravatar }}" alt="" class="w-8 h-8 me-3 rounded-full">
+                                    <div>
+                                        <h6 class="text-sm font-bold mb-2">{{ reply.author.name }} replied on {{ reply.date }}:</h6>
+                                        <p class="text-sm font-light">
+                                            {{ reply.body | safe }}
+                                        </p>
+                                    </div>
                                 </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
-                        </div>
-                        <div class="mt-8 hidden w-full border border border-slate-300 rounded-xl text-sm"
-                             id="reply-to-{{ comment.id }}">
-                            <textarea name="reply" rows="3" placeholder="Write a reply..." style="resize: none"
-                                      class="text-sm w-full p-3 rounded-xl focus:outline-none" id="textarea-{{ comment.id }}"
-                            ></textarea>
-                            <button class="w-16 block p-1 ml-auto bg-red-400 hover:bg-red-300 m-3 text-sm text-white rounded-full"
-                                    id="submit-reply-btn" onclick="replyToComment({{ comment.id }})">
-                                Reply
-                            </button>
+                            <div class="mt-8 w-full border border border-slate-300 rounded-xl text-sm"
+                                 id="reply-to-{{ comment.id }}">
+                                <textarea name="reply" rows="3" placeholder="Write a reply..." style="resize: none"
+                                          class="text-sm w-full p-3 rounded-xl focus:outline-none" id="textarea-{{ comment.id }}"
+                                ></textarea>
+                                <button class="w-16 block p-1 ml-auto bg-red-400 hover:bg-red-300 m-3 text-sm text-white rounded-full"
+                                        id="submit-reply-btn" onclick="replyToComment({{ comment.id }})">
+                                    Reply
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
