@@ -16,10 +16,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from extensions import db, login_manager
 from models import User, BlogPost, Comment
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
+from typing import cast
 import bleach
 
 bp = Blueprint("main", __name__)
 
+user = cast(User, current_user)
 
 def cleanify(text, *, allow_tags=None):
     """
@@ -178,7 +180,7 @@ def new_post():
             subtitle=request.form.get("subtitle", ""),
             img_url=request.form.get("img_url", ""),
             body=request.form.get("body", ""),
-            author=current_user,
+            author=cast(User, current_user),
             author_id=current_user.id,
             date=date,
             likes=[],
@@ -228,6 +230,8 @@ def like_post(post_id):
     post = db.session.execute(
         db.select(BlogPost).where(BlogPost.id == post_id)
     ).scalar()
+    if post is None:
+        return redirect(url_for("main.home"))
     print(current_user.is_authenticated)
     if not current_user.is_authenticated:
         print("hello")
@@ -239,17 +243,23 @@ def like_post(post_id):
         post_with_new_likes = db.session.execute(
             db.select(BlogPost).where(BlogPost.id == post_id)
         ).scalar()
+        if post_with_new_likes is None:
+            return redirect(url_for("main.home"))
         likes = [user.to_dict() for user in post_with_new_likes.likes]
         return jsonify(new_value=likes, user_id=current_user.id)
     else:
         post = db.session.execute(
             db.select(BlogPost).where(BlogPost.id == post_id)
         ).scalar()
+        if post is None:
+            return redirect(url_for("main.home"))
         post.likes.remove(current_user)
         db.session.commit()
         post_with_new_likes = db.session.execute(
             db.select(BlogPost).where(BlogPost.id == post_id)
         ).scalar()
+        if post_with_new_likes is None:
+            return redirect(url_for("main.home"))
         likes = [user.to_dict() for user in post_with_new_likes.likes]
         return jsonify(new_value=likes, user_id=current_user.id)
 
@@ -260,23 +270,31 @@ def like_comment(comment_id):
     comment = db.session.execute(
         db.select(Comment).where(Comment.id == comment_id)
     ).scalar()
+    if comment is None:
+        return redirect(url_for("main.home"))
     if current_user not in comment.likes:
         comment.likes.append(current_user)
         db.session.commit()
         comment_with_new_likes = db.session.execute(
             db.select(Comment).where(Comment.id == comment_id)
         ).scalar()
+        if comment_with_new_likes is None:
+            return redirect(url_for("main.home"))
         likes = [user.to_dict() for user in comment_with_new_likes.likes]
         return jsonify(new_value=likes, user_id=current_user.id)
     else:
         comment = db.session.execute(
             db.select(Comment).where(Comment.id == comment_id)
         ).scalar()
+        if comment is None:
+            return redirect(url_for("main.home"))
         comment.likes.remove(current_user)
         db.session.commit()
         comment_with_new_likes = db.session.execute(
             db.select(Comment).where(Comment.id == comment_id)
         ).scalar()
+        if comment_with_new_likes is None:
+            return redirect(url_for("main.home"))
         likes = [user.to_dict() for user in comment_with_new_likes.likes]
         return jsonify(new_value=likes, user_id=current_user.id)
 
@@ -299,6 +317,8 @@ def delete_comment(comment_id):
     comment_to_delete = db.session.execute(
         db.select(Comment).where(Comment.id == comment_id)
     ).scalar()
+    if comment_to_delete is None:
+        return redirect(url_for("main.home"))
     if current_user.id == comment_to_delete.author_id:
         db.session.delete(comment_to_delete)
         db.session.commit()
@@ -317,6 +337,8 @@ def reply_to_comment(comment_id):
     comment = db.session.execute(
         db.select(Comment).where(Comment.id == comment_id)
     ).scalar()
+    if comment is None:
+        return redirect(url_for("main.home"))
     date = datetime.now().date().strftime("%B %d, %Y")
     data = request.get_json()
     print(data)
@@ -342,6 +364,8 @@ def get_comment_replies(comment_id):
     comment = db.session.execute(
         db.select(Comment).where(Comment.id == comment_id)
     ).scalar()
+    if comment is None:
+        return redirect(url_for("main.home"))
     replies = [reply.to_dict() for reply in comment.replies]
     return jsonify(replies=replies)
 

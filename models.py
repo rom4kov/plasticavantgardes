@@ -1,13 +1,10 @@
 from __future__ import annotations
 from flask_login import UserMixin
 from sqlalchemy import Integer, String, ForeignKey, Table, Column
-from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.sql.elements import SQLCoreOperations
 from extensions import db
 from typing import List, Dict, Any, Optional
-
-
-class Base(DeclarativeBase):
-    pass
 
 
 posts_association_table = Table(
@@ -25,7 +22,7 @@ comments_association_table = Table(
 )
 
 
-class User(db.Model, UserMixin):
+class User(db.Model, UserMixin): # type: ignore[name-defined]
     __tablename__ = "user_table"
 
     def __init__(self, name: str, email: str, password: str, 
@@ -51,16 +48,16 @@ class User(db.Model, UserMixin):
     liked_comments: Mapped[List["Comment"]] = relationship(secondary=comments_association_table, back_populates="likes")
 
     def to_dict(self) -> Dict[str, Any]:
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns} # type: ignore[repostAttributeAccessIssue]
 
 
-class BlogPost(db.Model):
+class BlogPost(db.Model): # type: ignore[name-defined]
     __tablename__ = "blog_post_table"
 
     def __init__(self, title: str, subtitle: str, img_url: str, body: str, date: str,
-             author: User, author_id: int, 
-             comments: List[Comment] = None, 
-             likes: List[User] = None):
+             author: SQLCoreOperations[User] | User, author_id: int, 
+             comments: Optional[List[Comment]] = None, 
+             likes: Optional[List[User]] = None):
         self.title = title
         self.subtitle = subtitle
         self.img_url = img_url
@@ -83,7 +80,7 @@ class BlogPost(db.Model):
     likes: Mapped[List["User"]] = relationship(secondary=posts_association_table, back_populates="liked_posts")
 
 
-class Comment(db.Model):
+class Comment(db.Model): # type: ignore[name-defined]
     __tablename__ = "comment_table"
 
     def __init__(self, body, blog_post, blog_post_id, author, author_id, date, likes, replied_to_id, replies=[]):
@@ -110,4 +107,4 @@ class Comment(db.Model):
     replies: Mapped[List["Comment"]] = relationship(back_populates="replied_to")
 
     def to_dict(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns} # type: ignore[repostAttributeAccessIssue]
