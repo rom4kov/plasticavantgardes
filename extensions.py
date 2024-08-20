@@ -13,4 +13,4 @@ class Base(DeclarativeBase):
 
 login_manager = LoginManager()
 ckeditor = CKEditor()
-db = SQLAlchemy(model_class=Base)
+db: SQLAlchemy = SQLAlchemy(model_class=Base)

@@ -3,7 +3,7 @@ from flask_login import UserMixin
 from sqlalchemy import Integer, String, ForeignKey, Table, Column
 from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase
 from extensions import db
-from typing import List
+from typing import List, Dict, Any, Optional
 
 
 class Base(DeclarativeBase):
@@ -28,6 +28,19 @@ comments_association_table = Table(
 class User(db.Model, UserMixin):
     __tablename__ = "user_table"
 
+    def __init__(self, name: str, email: str, password: str, 
+                     posts: Optional[List[BlogPost]] = None, 
+                     comments: Optional[List[Comment]] = None, 
+                     liked_posts: Optional[List[BlogPost]] = None, 
+                     liked_comments: Optional[List[Comment]] = None):
+        self.name = name
+        self.email = email
+        self.password = password
+        self.posts = posts if posts is not None else []
+        self.comments = comments if comments is not None else []
+        self.liked_posts = liked_posts if liked_posts is not None else []
+        self.liked_comments = liked_comments if liked_comments is not None else []
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
     email: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
@@ -37,12 +50,26 @@ class User(db.Model, UserMixin):
     liked_posts: Mapped[List["BlogPost"]] = relationship(secondary=posts_association_table, back_populates="likes")
     liked_comments: Mapped[List["Comment"]] = relationship(secondary=comments_association_table, back_populates="likes")
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
 class BlogPost(db.Model):
     __tablename__ = "blog_post_table"
+
+    def __init__(self, title: str, subtitle: str, img_url: str, body: str, date: str,
+             author: User, author_id: int, 
+             comments: List[Comment] = None, 
+             likes: List[User] = None):
+        self.title = title
+        self.subtitle = subtitle
+        self.img_url = img_url
+        self.body = body
+        self.date = date
+        self.author = author
+        self.author_id = author_id
+        self.comments = comments if comments is not None else []
+        self.likes = likes if likes is not None else []
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     title: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)
@@ -58,6 +85,17 @@ class BlogPost(db.Model):
 
 class Comment(db.Model):
     __tablename__ = "comment_table"
+
+    def __init__(self, body, blog_post, blog_post_id, author, author_id, date, likes, replied_to_id, replies=[]):
+        self.body = body
+        self.blog_post = blog_post
+        self.blog_post_id = blog_post_id
+        self.author = author
+        self.author_id = author_id
+        self.date = date
+        self.likes = likes
+        self.replied_to_id = replied_to_id
+        self.replies = replies
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     body: Mapped[str] = mapped_column(String(5000), unique=True, nullable=False)

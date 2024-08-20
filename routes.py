@@ -1,5 +1,3 @@
-import json
-
 from flask import (
     Blueprint,
     redirect,
@@ -15,7 +13,7 @@ from datetime import datetime
 from smtplib import SMTP
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
-from extensions import app, db, login_manager
+from extensions import db, login_manager
 from models import User, BlogPost, Comment
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 import bleach
@@ -103,6 +101,11 @@ def get_post(post_id):
     post = db.session.execute(
         db.select(BlogPost).where(BlogPost.id == post_id)
     ).scalar()
+
+    if post is None:
+        flash("Post not found.")
+        return redirect(url_for("main.home"))
+
     comments = db.session.execute(
         db.select(Comment).where(Comment.blog_post_id == post_id)
     ).scalars()
@@ -171,10 +174,10 @@ def new_post():
     image = "../static/images/parisdemo.jpg"
     if form.validate_on_submit():
         new_blogpost = BlogPost(  # type: ignore
-            title=request.form.get("title"),
-            subtitle=request.form.get("subtitle"),
-            img_url=request.form.get("img_url"),
-            body=request.form.get("body"),
+            title=request.form.get("title", ""),
+            subtitle=request.form.get("subtitle", ""),
+            img_url=request.form.get("img_url", ""),
+            body=request.form.get("body", ""),
             author=current_user,
             author_id=current_user.id,
             date=date,
