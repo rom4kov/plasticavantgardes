@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 <div>
-    <div class="w-full h-[50vh] flex flex-col justify-end">
-        <h1 class="w-2/5 mx-auto block relative text-5xl font-extrabold font-sans text-white text-start mb-5"
+    <div class="relative -top-[29rem] w-full h-[50vh] flex flex-col justify-end">
+        <h1 class="w-2/5 mx-auto block text-5xl font-extrabold font-sans text-white text-start mb-5"
         >{{ post['title'] }}</h1>
-        <h2 class="w-2/5 mx-auto text-2xl relative font-extrabold font-sans text-white text-start">{{
+        <h2 class="w-2/5 mx-auto text-2xl font-extrabold font-sans text-white text-start">{{
             post['subtitle'] }}</h2>
-        <p class="w-2/5 mt-5 mb-12 mx-auto block relative font-extrabold font-sans mx-auto text-white text-start">
+        <p class="w-2/5 mt-5 mb-12 mx-auto block font-extrabold font-sans mx-auto text-white text-start">
             Posted by <span class="text-white underline">{{ post['author']['name'] }}</span> on {{ post['date'] }}
         </p>
     </div>
-    <div class="w-2/5 h-full mx-auto text-lg relative top-[3rem] mb-[40rem] rounded-xl font-bold">
+    <div class="blogpost relative -top-[28rem] w-2/5 h-full mx-auto text-lg relative top-[3rem] mb-[40rem] rounded-xl font-bold">
         {{ post['body'] | safe }}
         <div class="mt-5 flex">
             <button id="like-button" class="h-5 me-3 mb-1 mt-[0.1rem] flex items-center hover:text-red-400"
@@ -54,8 +54,10 @@
                 {% endif %}
             </button>
             {% if current_user.is_authenticated and current_user.id == 1: %}
-            <a href="{{ url_for('main.edit_post', post_id=post['id'], heading='Edit Post') }}"
-               class="me-2 mt-[0.2rem] underline text-sm">Edit Post
+            <!-- The 'post.id' code in the line below was 'post.['id']' before and broke the highlighting. -->
+            <!-- It has to be tested, if this works -->
+            <a href="{{ url_for('main.edit_post', post_id=post.id, heading='Edit Post') }}"
+              class="me-2 mt-[0.2rem] underline text-sm">Edit Post
             </a>
             {% endif %}
             <a href="/" class="mt-[0.2rem] ps-2 text-sm underline">Go back to home</a>

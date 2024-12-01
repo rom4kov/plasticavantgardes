@@ -610,20 +610,16 @@ video {
   left: 50%;
 }
 
-.left-1\/3 {
-  left: 33.333333%;
-}
-
 .top-1\/2 {
   top: 50%;
 }
 
-.top-48 {
-  top: 12rem;
+.top-36 {
+  top: 9rem;
 }
 
-.top-56 {
-  top: 14rem;
+.top-48 {
+  top: 12rem;
 }
 
 .top-\[22rem\] {
@@ -636,6 +632,66 @@ video {
 
 .top-\[3rem\] {
   top: 3rem;
+}
+
+.left-1\/3 {
+  left: 33.333333%;
+}
+
+.top-0 {
+  top: 0px;
+}
+
+.-top-5 {
+  top: -1.25rem;
+}
+
+.-top-8 {
+  top: -2rem;
+}
+
+.-top-36 {
+  top: -9rem;
+}
+
+.-top-48 {
+  top: -12rem;
+}
+
+.-top-56 {
+  top: -14rem;
+}
+
+.-top-60 {
+  top: -15rem;
+}
+
+.-top-96 {
+  top: -24rem;
+}
+
+.-top-\[40rem\] {
+  top: -40rem;
+}
+
+.-top-\[30rem\] {
+  top: -30rem;
+}
+
+.-top-\[28rem\] {
+  top: -28rem;
+}
+
+.-top-\[29rem\] {
+  top: -29rem;
+}
+
+.-top-12 {
+  top: -3rem;
+}
+
+.-top-16 {
+  top: -4rem;
 }
 
 .z-10 {
@@ -755,8 +811,24 @@ video {
   margin-top: 0.2rem;
 }
 
+.-mt-\[10rem\] {
+  margin-top: -10rem;
+}
+
+.-mt-\[7\.5rem\] {
+  margin-top: -7.5rem;
+}
+
+.-mt-\[5rem\] {
+  margin-top: -5rem;
+}
+
 .block {
   display: block;
+}
+
+.inline {
+  display: inline;
 }
 
 .flex {
@@ -794,6 +866,43 @@ video {
 
 .h-full {
   height: 100%;
+}
+
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.h-1\/3 {
+  height: 33.333333%;
+}
+
+.h-48 {
+  height: 12rem;
+}
+
+.h-72 {
+  height: 18rem;
+}
+
+.h-96 {
+  height: 24rem;
+}
+
+.h-\[40vh\] {
+  height: 40vh;
+}
+
+.h-24 {
+  height: 6rem;
+}
+
+.h-36 {
+  height: 9rem;
+}
+
+.h-\[30vh\] {
+  height: 30vh;
 }
 
 .w-1\/3 {
@@ -846,6 +955,10 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-\[70vw\] {
+  width: 70vw;
 }
 
 .min-w-80 {
@@ -921,6 +1034,18 @@ video {
 
 .gap-5 {
   gap: 1.25rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+.gap-12 {
+  gap: 3rem;
+}
+
+.gap-16 {
+  gap: 4rem;
 }
 
 .rounded-full {
@@ -1322,6 +1447,22 @@ body{
   margin-top:20px;
   font-size:15px;
   line-height:22px;
+}
+
+.blogpost h2 {
+  font-size: 1.8rem;
+  margin-block: 1rem;
+}
+
+.blogpost h3 {
+  font-size: 1.5rem;
+  margin-block: 1rem;
+}
+
+.blogpost blockquote {
+  font-size: 1rem;
+  margin-left: 2rem;
+  line-height: 1.1rem;
 }
 
 input {

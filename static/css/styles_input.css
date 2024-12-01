@@ -63,6 +63,22 @@ body{
   line-height:22px;
 }
 
+.blogpost h2 {
+  font-size: 1.8rem;
+  margin-block: 1rem;
+}
+
+.blogpost h3 {
+  font-size: 1.5rem;
+  margin-block: 1rem;
+}
+
+.blogpost blockquote {
+  font-size: 1rem;
+  margin-left: 2rem;
+  line-height: 1.1rem;
+}
+
 input {
   padding-left: 0.5rem;
 }
