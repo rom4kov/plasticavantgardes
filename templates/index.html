@@ -1,26 +1,26 @@
 {% extends "base.html" %} {% block title %}Ruins of Reason{% endblock %} {%
 block content %}
 <h1
-  class="relative -top-60 container mx-auto text-6xl font-extrabold font-sans text-white text-center absolute transform z-10"
+  class="relative -top-60 container xl:w-[80vw] mx-auto text-6xl font-extrabold font-sans text-white text-center absolute transform z-10"
   >
   Reflections on the Politics of Plasticity of Art
 </h1>
 <div class="container mx-auto h-fit transform -mt-[5rem] pb-[10rem]">
   <div
-    class="flex gap-16 z-10"
+    class="flex flex-wrap justify-between gap-3 sm:gap-3 md:gap-3 xl:gap-2 z-10"
   >
     {% for post in posts: %}
-    <div class="w-2/3 h-full mx-auto m-12 rounded-lg article-card">
-      <div class="text-gray-500 hover:text-red-400">
-        <h2 class="text-4xl text-inherit font-extrabold font-sans mb-3">
+    <div class="group lg:w-[29%] xl:w-[30%] h-[22rem] p-3 border border-slate-400 hover:border-red-400 rounded-lg article-card flex flex-col">
+      <div class="text-gray-500 group-hover:text-red-400">
+        <h2 class="text-2xl md:text-3xl xl:text-4xl text-inherit font-extrabold font-sans mb-3 hyphens-auto break-words">
           {{ post["title"] }}
         </h2>
         <p class="text-xl font-extrabold">{{ post["subtitle"] }}</p>
       </div>
-      <p class="text mt-2">
+      <p class="text mt-2 group-hover:text-red-400">
         Posted by {{ post["author"]["name"] }} on {{ post.date }}
       </p>
-      <div class="flex gap-3">
+      <div class="flex gap-3 mt-auto group-hover:text-red-400">
         <a
           href="{{ url_for('main.get_post', post_id=post['id']) }}"
           class="underline mt-3 block"
@@ -39,7 +39,7 @@ block content %}
   </div>
   {% if current_user and current_user.id == 1: %}
   <p
-    class="w-48 mx-auto rounded-xl text-sm text-center text-white font-extrabold leading-6 bg-red-400 hover:bg-red-300 transition-all duration-200 cursor-pointer"
+    class="w-48 mt-12 mx-auto rounded-xl text-sm text-center text-white font-extrabold leading-6 bg-red-400 hover:bg-red-300 transition-all duration-200 cursor-pointer"
   >
     <a href="{{ url_for('main.new_post', heading='New Post') }}"
       >Write a new blog post</a
