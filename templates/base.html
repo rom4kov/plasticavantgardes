@@ -2,23 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/styles_output.css">
 </head>
-<body>
+<body class="bg-slate-100">
     {% include "header.html" %}
     {% block content %}{% endblock %}
+    {% include "footer.html" %}
     <script>
         const navbar = document.querySelector("nav.w-full");
         window.addEventListener("scroll", () => {
+          if (window.innerWidth < 730) {
+            const mobileNav = document.querySelector("#mobile-navbar");
+            if (window.scrollY >= 100) {
+                mobileNav.classList.add("bg-[#86452770]", "backdrop-blur-sm");
+            } else {
+                mobileNav.classList.remove("bg-[#86452770]", "backdrop-blur-sm")
+            }
+          } else {
             if (window.scrollY >= 100) {
                 navbar.classList.add("bg-black/70", "backdrop-blur-sm");
             } else {
                 navbar.classList.remove("bg-black/70", "backdrop-blur-sm")
             }
+          }
         })
     </script>
-    {% include "footer.html" %}
+    <script src="../static/js/switchNavbarStyle.js"></script>
 </body>
 </html>

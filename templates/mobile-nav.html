@@ -1,0 +1,86 @@
+<nav
+  id="mobile-navbar"
+  class="hidden fixed top-0 w-full font-sans font-extrabold text-white transition-background z-20"
+>
+  <div class="container mx-auto md:flex items-center gap-6">
+    <!-- Logo -->
+    <div class="flex items-center justify-between md:w-auto w-full">
+      <h1 class="text-2xl -mt-1">
+        Ruins of <span class="text-red-300">Reason</span>
+      </h1>
+      <!-- Mobile Menu Button -->
+      <div class="mobile-menu-button flex flex-col justify-center z-20">
+        <div class="relative py-3 sm:max-w-xl mx-auto">
+          <nav x-data="{ open: false }">
+            <button class="text-white w-6 h-6 relative focus:outline-none" @click="open = !open">
+              <span class="sr-only">Open main menu</span>
+              <div class="block w-5 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out" :class="{'rotate-45': open,' -translate-y-1.5': !open }"></span>
+                <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out" :class="{'opacity-0': open } "></span>
+                <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out" :class="{'-rotate-45': open, ' translate-y-1.5': !open}"></span>
+              </div>
+            </button>
+          </nav>
+        </div>
+      </div>
+    <!-- Primary Navigation -->
+    <div
+      class="hidden absolute inset-0 w-[98vw] flex flex-col md:flex-row justify-center items-center justify-start md:space-x-1 navigation-menu mt-5 -top-24 md:pb-0 navigation-menu"
+    >
+      <a href="/" class="py-2 text-4xl block">Home</a>
+      <a href="/about" class="py-2 text-4xl block">About</a>
+      <a href="/contact" class="py-2 text-4xl block">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Select all dropdown toggle buttons
+    const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+
+    dropdownToggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        // Find the next sibling element which is the dropdown menu
+        const dropdownMenu = toggle.nextElementSibling;
+
+        // Toggle the 'hidden' class to show or hide the dropdown menu
+        if (dropdownMenu.classList.contains("hidden")) {
+          // Hide any open dropdown menus before showing the new one
+          document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+            menu.classList.add("hidden");
+          });
+
+          dropdownMenu.classList.remove("hidden");
+        } else {
+          dropdownMenu.classList.add("hidden");
+        }
+      });
+    });
+
+    // Optional: Clicking outside of an open dropdown menu closes it
+    window.addEventListener("click", (event) => {
+      if (!event.target.matches(".dropdown-toggle")) {
+        document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+          if (!menu.contains(event.target)) {
+            menu.classList.add("hidden");
+          }
+        });
+      }
+    });
+  });
+
+  const mobileMenuButton = document.querySelector(".mobile-menu-button");
+  const mobileMenu = document.querySelector(".navigation-menu");
+  const mobileNav = document.querySelector("#mobile-navbar");
+
+  mobileMenuButton.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+    mobileNav.classList.toggle("h-[100vh]");
+    mobileNav.classList.toggle("backdrop-blur-xl");
+    mobileNav.classList.toggle("bg-[#86452780]");
+    mobileNav.classList.toggle("duration-300");
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
