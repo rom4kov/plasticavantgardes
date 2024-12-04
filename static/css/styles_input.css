@@ -81,6 +81,7 @@ body{
 
 input {
   padding-left: 0.5rem;
+  border: 1px solid #e0e0e0;
 }
 
 footer {
@@ -105,4 +106,51 @@ footer {
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.1rem;
+}
+
+label {
+  color: grey;
+  position: absolute;
+  width: fit-content;
+  background: white;
+  translate: 0.7rem -1.7rem;
+  scale: 1;
+  transform-origin: top left;
+  transition: 
+    translate 200ms ease,
+    scale 200ms ease
+}
+
+textarea ~ label {
+  translate: 0.7rem -7.7rem;
+  scale: 1;
+  transform-origin: top left;
+  transition: 
+    translate 200ms ease,
+    scale 200ms ease
+}
+
+input:focus ~ label {
+  padding-inline: 0.2rem;
+  translate: 0.4rem -2.5rem;
+  transform-origin: top left;
+  scale: 0.8;
+  transition: 
+    translate 200ms ease,
+    scale 200ms ease
+}
+
+textarea:focus ~ label {
+  padding-inline: 0.2rem;
+  translate: 0.7rem -8.6rem;
+  scale: 0.8;
+  transform-origin: top left;
+  transition: 
+    translate 200ms ease,
+    scale 200ms ease
+}
+
+input:focus-visible, textarea:focus-visible {
+  border: 1px solid red;
+  outline: none;
 }

@@ -2,17 +2,17 @@
 <div>
   <div class="absolute top-0 w-full h-[40vh] flex flex-col justify-end">
     <h1
-      class="w-full xl:w-2/5 mx-auto mb-5 px-[2rem] block text-2xl sm:text-3xl dd:text-4xl md:text-5xl font-extrabold font-sans text-white text-start db-5"
+      class="w-full sm:container md:w-4/5 xl:w-3/5 mx-auto mb-5 px-[2rem] block text-3xl sm:text-4xl md:text-5xl font-extrabold font-sans text-white text-start db-5"
     >
       {{ post['title'] }}
     </h1>
     <h2
-      class="w-full xl:w-2/5 mx-auto px-[2rem] text-base xl:text-2xl font-extrabold font-sans text-white text-start"
+      class="w-full sm:container md:w-4/5 xl:w-3/5 mx-auto px-[2rem] text-base xl:text-2xl font-extrabold font-sans text-white text-start"
     >
       {{ post['subtitle'] }}
     </h2>
     <p
-      class="w-full xl:w-2/5 mt-2 xl:mt-5 mb-5 mx-auto px-[2rem] block font-extrabold font-sans mx-auto text-xs xl:text-base text-white text-start"
+      class="w-full sm:container md:w-4/5 xl:w-3/5 mt-2 xl:mt-5 mb-5 mx-auto px-[2rem] block font-extrabold font-sans mx-auto text-xs xl:text-base text-white text-start"
     >
       Posted by
       <span class="text-white underline">{{ post['author']['name'] }}</span> on
@@ -20,7 +20,7 @@
     </p>
   </div>
   <div
-    class="blogpost relative w-full xl:w-2/5 h-full mx-auto px-[2rem] text-md md:text-lg relative mt-[1.5rem] mb-[40rem] rounded-xl font-bold hyphens-auto break-word"
+    class="blogpost relative w-full sm:container md:w-4/5 xl:w-3/5 h-full mx-auto px-[2rem] text-md md:text-lg relative mt-[1.5rem] mb-[40rem] rounded-xl font-bold hyphens-auto break-word"
   >
     {{ post['body'] | safe }}
     <div class="mt-5 flex">
