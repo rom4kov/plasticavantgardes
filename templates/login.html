@@ -1,50 +1,55 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <h1
-        class="text-6xl font-extrabold font-sans text-white fixed top-48 left-1/2 transform -translate-x-1/2 z-20"
->Login</h1>
-<div class="container absolute left-1/2 transform -translate-x-1/2 top-[22rem] z-10">
-    <form method="POST" action="{{ url_for('main.login') }}" novalidate>
-        {{ form.csrf_token }}
-        <div class="w-1/3 min-w-80 h-full mx-auto shadow-xl m-12 p-12 bg-black/20 rounded-lg flex flex-col">
-            <p class="hidden mb-5" id="custom-flash-message"></p>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul class="flashes list-none text-center">
-                {% for message in messages %}
-                <li class="text-danger">{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
+  class="text-6xl font-extrabold font-sans text-white fixed top-48 left-1/2 transform -translate-x-1/2 z-20"
+>
+  Login
+</h1>
+<div
+  class="container mt-12 absolute left-1/2 transform -translate-x-1/2 top-[15rem] md:top-[22rem] z-10"
+>
+  <form method="POST" action="{{ url_for('main.login') }}" novalidate>
+    {{ form.csrf_token }}
+    <div
+      class="w-1/3 min-w-80 h-full mx-auto shadow-2xl md:mt-12 p-12 bg-gray-100 rounded-lg flex flex-col gap-3"
+    >
+      <p class="hidden mb-5" id="custom-flash-message"></p>
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul class="flashes list-none text-center">
+        {% for message in messages %}
+        <li class="text-danger">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
 
-            {{ form.email.label }}
-            {{ form.email(size=30, class="mt-2 mb-4 ps-2 border border-solid border-black rounded-md") }}
-            {% for err in form.email.errors %}
-            <span class="text-red-600 -mt-2 mb-3">{{ err }}</span>
-            {% endfor %}
+      <div class="w-full">
+        {{ form.email(class="w-full h-8 mt-2 py-3 px-6 s-2 rounded-md") }} {{
+        form.email.label(class="block") }}
+      </div>
+      {% for err in form.email.errors %}
+      <span class="text-red-600 -mt-2 mb-3">{{ err }}</span>
+      {% endfor %}
 
-            {{ form.password.label }}
-            {{ form.password(size=30, class="mt-2 mb-4 ps-2 border border-solid border-black rounded-md") }}
-            {% for err in form.password.errors %}
-            <span class="text-red-600 -mt-2 mb-3">{{ err }}</span>
-            {% endfor %}
-
-            {{ form.submit(size=30, class="bg-red-400 hover:bg-red-300 rounded-lg text-white font-bold mt-3
-            transition-all") }}
-        </div>
-    </form>
+      <div class="w-full">
+        {{ form.password(class="w-full h-8 mt-2 py-3 px-6 s-2 rounded-md") }} {{
+        form.password.label(class="block") }}
+      </div>
+      {% for err in form.password.errors %}
+      <span class="text-red-600 -mt-2 mb-3">{{ err }}</span>
+      {% endfor %} {{ form.submit(size=30, class="w-full mt-3 bg-red-400
+      hover:bg-red-300 rounded-xl text-white font-bold mt-3 transition-all") }}
+    </div>
+  </form>
 </div>
 <script>
-    // Check for flash message in session storage
-    const flashMessage = sessionStorage.getItem('flashMessage');
-    if (flashMessage) {
-        // Display the flash message
-        const messageElement = document.querySelector("#custom-flash-message");
-        messageElement.innerText = flashMessage;
-        messageElement.classList.remove("hidden");
-        // Remove the flash message from session storage
-        sessionStorage.removeItem('flashMessage');
-    }
+  // Check for flash message in session storage
+  const flashMessage = sessionStorage.getItem("flashMessage");
+  if (flashMessage) {
+    // Display the flash message
+    const messageElement = document.querySelector("#custom-flash-message");
+    messageElement.innerText = flashMessage;
+    messageElement.classList.remove("hidden");
+    // Remove the flash message from session storage
+    sessionStorage.removeItem("flashMessage");
+  }
 </script>
 {% endblock %}
