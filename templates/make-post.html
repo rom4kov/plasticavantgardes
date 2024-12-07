@@ -28,15 +28,15 @@
     >
       {{ form.csrf_token }}
       <div class="w-full">
-        {{ form.title(class="w-full h-8 mt-2 rounded-md px-6 py-3") }}
+        {{ form.title(class="w-full h-8 mt-2 rounded-md py-3") }}
         {{ form.title.label(class="block") }} 
       </div>
       <div class="w-full">
-        {{ form.subtitle(class="w-full h-8 mt-2 rounded-md px-6 py-3") }}
+        {{ form.subtitle(class="w-full h-8 mt-2 rounded-md py-3") }}
         {{ form.subtitle.label(class="block") }} 
       </div>
       <div class="w-full mb-5">
-        {{ form.img_url(class="w-full h-8 mt-2 rounded-md px-6 py-3") }}
+        {{ form.img_url(class="w-full h-8 mt-2 rounded-md py-3") }}
         {{ form.img_url.label(class="block") }} 
       </div>
       {% if post: %} {{ form.body(value='post.body') }} {% else: %} {{ form.body
