@@ -1677,6 +1677,10 @@ input:focus-visible, textarea:focus-visible {
 }
 
 @media (min-width: 450px) {
+  .xs\:mb-5 {
+    margin-bottom: 1.25rem;
+  }
+
   .xs\:h-\[22rem\] {
     height: 22rem;
   }
@@ -1687,6 +1691,10 @@ input:focus-visible, textarea:focus-visible {
 }
 
 @media (min-width: 640px) {
+  .sm\:mb-5 {
+    margin-bottom: 1.25rem;
+  }
+
   .sm\:w-\[42vw\] {
     width: 42vw;
   }
@@ -1725,6 +1733,14 @@ input:focus-visible, textarea:focus-visible {
 
   .md\:mt-12 {
     margin-top: 3rem;
+  }
+
+  .md\:mb-8 {
+    margin-bottom: 2rem;
+  }
+
+  .md\:mb-5 {
+    margin-bottom: 1.25rem;
   }
 
   .md\:flex {
@@ -1782,6 +1798,10 @@ input:focus-visible, textarea:focus-visible {
 }
 
 @media (min-width: 1024px) {
+  .lg\:mb-12 {
+    margin-bottom: 3rem;
+  }
+
   .lg\:w-\[29\%\] {
     width: 29%;
   }
@@ -1795,6 +1815,14 @@ input:focus-visible, textarea:focus-visible {
 @media (min-width: 1280px) {
   .xl\:mt-5 {
     margin-top: 1.25rem;
+  }
+
+  .xl\:mb-8 {
+    margin-bottom: 2rem;
+  }
+
+  .xl\:mb-12 {
+    margin-bottom: 3rem;
   }
 
   .xl\:w-1\/3 {
