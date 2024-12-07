@@ -1,45 +1,54 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <!-- Page Header -->
-<h1 class="text-6xl font-extrabold font-sans text-white fixed top-48 left-1/2 transform -translate-x-1/2 z-20">
-    {{ heading }}
+<h1
+  class="text-6xl font-extrabold font-sans text-white fixed top-48 left-1/2 transform -translate-x-1/2 z-20"
+>
+  {{ heading }}
 </h1>
-<div class="container min-w-fit absolute left-1/2 transform -translate-x-1/2 top-[25rem] z-30">
-    <div class="flex flex-col w-2/3 h-full mx-auto mb-16 shadow-xl m-12 p-12 bg-gray-100 rounded-lg article-card
-                relative z-30" id="write-container">
-        <h2 class="text-xl text-red-500 text-center font-extrabold mb-5">Writing is part of the class struggle</h2>
-        <form action="
+<div
+  class="container min-w-fit absolute left-1/2 transform -translate-x-1/2 top-[25rem] z-30"
+>
+  <div
+    class="flex flex-col w-2/3 h-full mx-auto mb-16 shadow-xl m-12 p-12 bg-gray-100 rounded-lg article-card relative z-30"
+    id="write-container"
+  >
+    <h2 class="text-xl text-red-500 text-center font-extrabold mb-5">
+      Writing is part of the class struggle
+    </h2>
+    <form
+      action="
                 {% if post: %}
                 {{ url_for('main.edit_post', post_id=post.id) }}
                 {% else: %}
                 {{ url_for('main.new_post') }}
                 {% endif %}
                 "
-              method="POST" class="text-start w-full flex flex-col">
-            {{ form.csrf_token }}
-            {{ form.title.label(class="text-lg font-extrabold") }}
-            {{ form.title(class="mb-3 rounded-md border border-[#b0b0b0] bg-white px-3 text-base font-medium
-            text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md") }}
-            {{ form.subtitle.label(class="text-lg font-extrabold") }}
-            {{ form.subtitle(class="w-full mb-3 rounded-md border border-[#b0b0b0] bg-white px-3 text-base font-medium
-            text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md") }}
-            {{ form.img_url.label(class="text-lg font-extrabold") }}
-            {{ form.img_url(class="w-full mb-8 rounded-md border border-[#b0b0b0] bg-white px-3 text-base font-medium
-            text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md") }}
-            {% if post: %}
-            {{ form.body(value='post.body') }}
-            {% else: %}
-            {{ form.body }}
-            {% endif %}
-            {{ form.submit(class="w-28 mt-5 ms-auto ps-0 rounded-lg bg-red-400 hover:bg-red-300 text-white
-            font-extrabold transition duration-300 cursor-pointer") }}
-        </form>
-        <p class="mt-5">
-            <a href="/" class="ps-2 underline">Go back to home</a>
-        </p>
-    </div>
+      method="POST"
+      class="text-start w-full flex flex-col gap-2" 
+    >
+      {{ form.csrf_token }}
+      <div class="w-full">
+        {{ form.title(class="w-full h-8 mt-2 rounded-md px-6 py-3") }}
+        {{ form.title.label(class="block") }} 
+      </div>
+      <div class="w-full">
+        {{ form.subtitle(class="w-full h-8 mt-2 rounded-md px-6 py-3") }}
+        {{ form.subtitle.label(class="block") }} 
+      </div>
+      <div class="w-full mb-5">
+        {{ form.img_url(class="w-full h-8 mt-2 rounded-md px-6 py-3") }}
+        {{ form.img_url.label(class="block") }} 
+      </div>
+      {% if post: %} {{ form.body(value='post.body') }} {% else: %} {{ form.body
+      }} {% endif %} {{ form.submit(class="w-28 mt-5 ms-auto ps-0 rounded-lg
+      bg-red-400 hover:bg-red-300 text-white font-extrabold transition
+      duration-300 cursor-pointer") }}
+    </form>
+    <p class="mt-5">
+      <a href="/" class="ps-2 underline">Go back to home</a>
+    </p>
+  </div>
 </div>
-{% include "footer.html" %}
-{{ ckeditor.load() }}
+{% include "footer.html" %} {{ ckeditor.load() }}
 <script src="../static/js/fadeOutHeading.js"></script>
 {% endblock %}
