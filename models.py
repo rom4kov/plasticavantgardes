@@ -1,6 +1,6 @@
 from __future__ import annotations
 from flask_login import UserMixin
-from sqlalchemy import Integer, String, ForeignKey, Table, Column
+from sqlalchemy import Integer, String, Text, ForeignKey, Table, Column
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql.elements import SQLCoreOperations
 from extensions import db
@@ -71,7 +71,7 @@ class BlogPost(db.Model): # type: ignore[name-defined]
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     title: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)
     date: Mapped[str] = mapped_column(String(25), nullable=False)
-    body: Mapped[str] = mapped_column(String(100000), unique=True, nullable=False)
+    body: Mapped[str] = mapped_column(Text)
     img_url: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)
     subtitle: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)
     author: Mapped["User"] = relationship(back_populates="posts")
