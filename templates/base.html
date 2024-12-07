@@ -13,13 +13,14 @@
     {% include "footer.html" %}
     <script>
         const navbar = document.querySelector("nav.w-full");
+        const mobileNavTop = document.querySelector("#mobile-navbar-top");
+        console.log(mobileNavTop);
         window.addEventListener("scroll", () => {
           if (window.innerWidth < 730) {
-            const mobileNav = document.querySelector("#mobile-navbar");
             if (window.scrollY >= 100) {
-                mobileNav.classList.add("bg-[#86452770]", "backdrop-blur-sm");
+                mobileNavTop.classList.add("bg-black/70", "backdrop-blur-sm");
             } else {
-                mobileNav.classList.remove("bg-[#86452770]", "backdrop-blur-sm")
+                mobileNavTop.classList.remove("bg-black/70", "backdrop-blur-sm")
             }
           } else {
             if (window.scrollY >= 100) {

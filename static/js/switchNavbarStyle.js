@@ -1,5 +1,4 @@
 if (window.innerWidth < 730) {
-  console.log("window width under 730")
   const dsNavbar = document.querySelector("#desktop-navbar");
   dsNavbar.classList.add("hidden");
   const mobNavbar = document.querySelector("#mobile-navbar");
@@ -12,7 +11,6 @@ if (window.innerWidth < 730) {
 }
 
 window.addEventListener("resize", () => {
-  console.log("resize");
   if (window.innerWidth < 730) {
     const dsNavbar = document.querySelector("#desktop-navbar");
     dsNavbar.classList.add("hidden");
