@@ -67,13 +67,13 @@ def home():
 
 @bp.route("/about")
 def about():
-    image = "../static/images/parisdemo.jpg"
+    image = "../static/assets/img/Francis_Picabia_cut.jpg"
     return render_template("about.html", image=image)
 
 
 @bp.route("/contact", methods=["GET", "POST"])
 def contact():
-    image = "../static/images/parisdemo.jpg"
+    image = "../static/assets/img/Albert_Gleizes_cut.jpg"
     if request.method == "POST":
         email = "aaronfeininger@gmail.com"
         password = "svnsqsyfwnzwjahl"
@@ -411,7 +411,7 @@ def load_user(user_id):
 @bp.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
-    image = "../static/images/fire.jpg"
+    image = "../static/assets/img/Umberto_Boccioni_cut.jpg"
     if form.validate_on_submit():
         user = db.session.execute(
             db.select(User).where(User.email == request.form["email"])

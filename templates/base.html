@@ -16,6 +16,7 @@
 <body class="bg-slate-100">
     {% include "header.html" %}
     {% block content %}{% endblock %}
+    {% include "scrollToTop.html" %}
     {% include "footer.html" %}
     <script>
         const navbar = document.querySelector("nav.w-full");
@@ -38,5 +39,6 @@
         })
     </script>
     <script src="../static/js/switchNavbarStyle.js"></script>
+    <script src="../static/js/scrollToTop.js"></script>
 </body>
 </html>
