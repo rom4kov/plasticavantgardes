@@ -373,7 +373,7 @@ def get_comment_replies(comment_id):
 @bp.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
-    image = "../static/images/fire.jpg"
+    image = "../static/assets/img/Boccioni_States_of_Mind_cut.jpg"
     if form.validate_on_submit():
         new_user = User(
             name=request.form.get("name"),  # type: ignore

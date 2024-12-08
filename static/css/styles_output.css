@@ -620,18 +620,6 @@ video {
   inset: 0px;
 }
 
-.inset-4 {
-  inset: 1rem;
-}
-
-.inset-3 {
-  inset: 0.75rem;
-}
-
-.inset-5 {
-  inset: 1.25rem;
-}
-
 .inset-\[1rem\] {
   inset: 1rem;
 }
@@ -648,12 +636,20 @@ video {
   bottom: 0px;
 }
 
+.bottom-12 {
+  bottom: 3rem;
+}
+
 .left-1\/2 {
   left: 50%;
 }
 
 .left-\[50\%\] {
   left: 50%;
+}
+
+.right-12 {
+  right: 3rem;
 }
 
 .top-0 {
@@ -682,14 +678,6 @@ video {
 
 .top-\[25rem\] {
   top: 25rem;
-}
-
-.bottom-12 {
-  bottom: 3rem;
-}
-
-.right-12 {
-  right: 3rem;
 }
 
 .z-10 {
@@ -747,10 +735,6 @@ video {
 
 .mb-8 {
   margin-bottom: 2rem;
-}
-
-.mb-\[40rem\] {
-  margin-bottom: 40rem;
 }
 
 .me-1 {
@@ -813,10 +797,6 @@ video {
   margin-top: auto;
 }
 
-.mb-\[10rem\] {
-  margin-bottom: 10rem;
-}
-
 .block {
   display: block;
 }
@@ -850,6 +830,10 @@ video {
   height: 25%;
 }
 
+.h-12 {
+  height: 3rem;
+}
+
 .h-5 {
   height: 1.25rem;
 }
@@ -879,12 +863,12 @@ video {
   height: 100%;
 }
 
-.h-12 {
-  height: 3rem;
-}
-
 .w-1\/3 {
   width: 33.333333%;
+}
+
+.w-12 {
+  width: 3rem;
 }
 
 .w-16 {
@@ -937,10 +921,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-12 {
-  width: 3rem;
 }
 
 .min-w-80 {
@@ -1078,6 +1058,10 @@ video {
   overflow-wrap: break-word;
 }
 
+.rounded-\[50\%\] {
+  border-radius: 50%;
+}
+
 .rounded-full {
   border-radius: 9999px;
 }
@@ -1092,10 +1076,6 @@ video {
 
 .rounded-xl {
   border-radius: 0.75rem;
-}
-
-.rounded-\[50\%\] {
-  border-radius: 50%;
 }
 
 .border {
@@ -1138,6 +1118,11 @@ video {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
+.bg-red-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
+}
+
 .bg-red-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(248 113 113 / var(--tw-bg-opacity));
@@ -1151,11 +1136,6 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-red-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-b {
@@ -1453,22 +1433,29 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-body{
-  margin: 0;
-  font-family: 'Raleway', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  color:#212121;
+html {
+  scrollbar-gutter: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 100, 100, 0.5) transparent;
+  overflow-y: scroll;
 }
 
-.wrapper{
+body {
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #212121;
+}
+
+.wrapper {
   position: relative;
-  clear:both;
+  clear: both;
   margin: 0 auto 75px auto;
   width: 100%;
   overflow: hidden;
 }
 
-.top{
+.top {
   background: #4e89ae;
   height: 180px;
   border-top: 20px solid #43658b;
@@ -1480,40 +1467,40 @@ body{
 }
 
 .title h1 {
-  font-size:24px;
-  color:#FFF;
-  font-weight:500;
+  font-size: 24px;
+  color: #fff;
+  font-weight: 500;
 }
 
-.content{
+.content {
   margin: -80px auto 100px;
   padding-bottom: 20px;
 }
 
-.card{
+.card {
   position: relative;
   background: #fff;
-  padding:50px;
+  padding: 50px;
   width: 600px;
   margin: 20px auto 0 auto;
-  box-shadow: 0 2px 4px rgba(100,100,100,.1);
+  box-shadow: 0 2px 4px rgba(100, 100, 100, 0.1);
 }
 
 .card h2 {
-  font-size:21px;
-  font-weight:500;
+  font-size: 21px;
+  font-weight: 500;
 }
 
 .card h2 a {
-  color:#CC0000;
-  text-decoration:none;
+  color: #cc0000;
+  text-decoration: none;
 }
 
 .card .text {
-  color:#212121;
-  margin-top:20px;
-  font-size:15px;
-  line-height:22px;
+  color: #212121;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 22px;
 }
 
 .blogpost h2 {
@@ -1570,18 +1557,18 @@ label {
   translate: 0.7rem -1.7rem;
   scale: 1;
   transform-origin: top left;
-  transition: 
+  transition:
     translate 200ms ease,
-    scale 200ms ease
+    scale 200ms ease;
 }
 
 textarea ~ label {
   translate: 0.7rem -7.7rem;
   scale: 1;
   transform-origin: top left;
-  transition: 
+  transition:
     translate 200ms ease,
-    scale 200ms ease
+    scale 200ms ease;
 }
 
 input:focus ~ label {
@@ -1589,9 +1576,9 @@ input:focus ~ label {
   translate: 0.4rem -2.5rem;
   transform-origin: top left;
   scale: 0.8;
-  transition: 
+  transition:
     translate 200ms ease,
-    scale 200ms ease
+    scale 200ms ease;
 }
 
 textarea:focus ~ label {
@@ -1599,12 +1586,13 @@ textarea:focus ~ label {
   translate: 0.7rem -8.6rem;
   scale: 0.8;
   transform-origin: top left;
-  transition: 
+  transition:
     translate 200ms ease,
-    scale 200ms ease
+    scale 200ms ease;
 }
 
-input:focus-visible, textarea:focus-visible {
+input:focus-visible,
+textarea:focus-visible {
   border: 1px solid red;
   outline: none;
 }
