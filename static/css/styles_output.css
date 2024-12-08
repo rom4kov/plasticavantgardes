@@ -692,6 +692,10 @@ video {
   z-index: 30;
 }
 
+.z-50 {
+  z-index: 50;
+}
+
 .m-12 {
   margin: 3rem;
 }
@@ -1599,7 +1603,7 @@ textarea:focus-visible {
 
 @media (prefers-color-scheme: dark) {
   #hamburger {
-    color: white;
+    color: white !important;
   }
 }
 
