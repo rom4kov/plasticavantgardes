@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     container: {
       padding: {
-        DEFAULT: "2rem",
+        DEFAULT: "1rem",
+        xs: '2rem',
         sm: '2.5vw',
         lg: '5vw',
         xl: '10vw',
