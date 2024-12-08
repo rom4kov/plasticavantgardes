@@ -797,6 +797,10 @@ video {
   display: flex;
 }
 
+.grid {
+  display: grid;
+}
+
 .hidden {
   display: none;
 }
@@ -981,6 +985,18 @@ video {
   list-style-type: none;
 }
 
+.auto-rows-min {
+  grid-auto-rows: min-content;
+}
+
+.auto-rows-fr {
+  grid-auto-rows: minmax(0, 1fr);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -1027,6 +1043,14 @@ video {
 
 .gap-2 {
   gap: 0.5rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+.gap-24 {
+  gap: 6rem;
 }
 
 .hyphens-auto {
@@ -1629,6 +1653,22 @@ input:focus-visible, textarea:focus-visible {
   transition-duration: 150ms;
 }
 
+.last\:me-auto:last-child {
+  margin-inline-end: auto;
+}
+
+.last\:ms-5:last-child {
+  margin-inline-start: 1.25rem;
+}
+
+.last\:ms-4:last-child {
+  margin-inline-start: 1rem;
+}
+
+.last\:justify-start:last-child {
+  justify-content: flex-start;
+}
+
 .hover\:translate-y-\[-3px\]:hover {
   --tw-translate-y: -3px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1767,6 +1807,10 @@ input:focus-visible, textarea:focus-visible {
     gap: 0.75rem;
   }
 
+  .md\:gap-\[2rem\] {
+    gap: 2rem;
+  }
+
   .md\:space-x-1 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-x-reverse: 0;
     margin-right: calc(0.25rem * var(--tw-space-x-reverse));
@@ -1800,6 +1844,26 @@ input:focus-visible, textarea:focus-visible {
 @media (min-width: 1024px) {
   .lg\:mb-12 {
     margin-bottom: 3rem;
+  }
+
+  .lg\:-mb-12 {
+    margin-bottom: -3rem;
+  }
+
+  .lg\:-mb-2 {
+    margin-bottom: -0.5rem;
+  }
+
+  .lg\:-mb-1 {
+    margin-bottom: -0.25rem;
+  }
+
+  .lg\:mb-8 {
+    margin-bottom: 2rem;
+  }
+
+  .lg\:mb-3 {
+    margin-bottom: 0.75rem;
   }
 
   .lg\:w-\[29\%\] {
@@ -1841,8 +1905,52 @@ input:focus-visible, textarea:focus-visible {
     width: 80vw;
   }
 
+  .xl\:w-\[15rem\] {
+    width: 15rem;
+  }
+
+  .xl\:w-\[20\] {
+    width: 20;
+  }
+
+  .xl\:w-\[20rem\] {
+    width: 20rem;
+  }
+
+  .xl\:w-full {
+    width: 100%;
+  }
+
   .xl\:gap-2 {
     gap: 0.5rem;
+  }
+
+  .xl\:gap-8 {
+    gap: 2rem;
+  }
+
+  .xl\:gap-12 {
+    gap: 3rem;
+  }
+
+  .xl\:gap-16 {
+    gap: 4rem;
+  }
+
+  .xl\:gap-\[3rem\] {
+    gap: 3rem;
+  }
+
+  .xl\:gap-\[3\.5rem\] {
+    gap: 3.5rem;
+  }
+
+  .xl\:gap-\[2\.5rem\] {
+    gap: 2.5rem;
+  }
+
+  .xl\:gap-\[2\.2rem\] {
+    gap: 2.2rem;
   }
 
   .xl\:text-2xl {
@@ -1873,5 +1981,11 @@ input:focus-visible, textarea:focus-visible {
   .xl\:text-5xl {
     font-size: 3rem;
     line-height: 1;
+  }
+}
+
+@media (min-width: 1536px) {
+  .\32xl\:gap-\[3\.5rem\] {
+    gap: 3.5rem;
   }
 }
