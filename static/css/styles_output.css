@@ -789,6 +789,10 @@ video {
   margin-top: auto;
 }
 
+.mb-\[10rem\] {
+  margin-bottom: 10rem;
+}
+
 .block {
   display: block;
 }
@@ -1027,6 +1031,10 @@ video {
 
 .gap-6 {
   gap: 1.5rem;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .hyphens-auto {

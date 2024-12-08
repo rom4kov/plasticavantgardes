@@ -20,7 +20,7 @@
     </p>
   </div>
   <div
-    class="blogpost relative w-full container md:w-4/5 xl:w-3/5 h-full mx-auto text-md md:text-lg relative mt-[1.5rem] mb-[40rem] rounded-xl font-bold hyphens-auto break-word"
+    class="blogpost relative w-full h-fit container md:w-4/5 xl:w-3/5 h-full mx-auto text-md md:text-lg relative mt-[1.5rem] pb-[10rem] rounded-xl font-bold hyphens-auto break-word"
   >
     {{ post['body'] | safe }}
     <div class="mt-5 flex">
@@ -106,7 +106,7 @@
       {% endfor %}
     </ul>
     {% endif %} {% endwith %}
-    <div id="comment-field" class="opacity-0 transition-opacity duration-300">
+    <div id="comment-field" class="h-0 opacity-0 transition-opacity duration-300 overflow-hidden">
       {% if current_user.is_authenticated: %}
       <form
         action="{{ url_for('main.get_post', post_id=post.id) }}"
@@ -282,8 +282,12 @@
     const commentField = document.querySelector("#comment-field");
     if (commentField.classList.contains("opacity-0")) {
       commentField.classList.replace("opacity-0", "opacity-100");
+      commentField.classList.replace("h-0", "h-fit");
+      commentField.classList.remove("overflow-hidden");
     } else {
       commentField.classList.replace("opacity-100", "opacity-0");
+      commentField.classList.replace("h-fit", "h-0");
+      commentField.classList.add("overflow-hidden");
     }
   });
 </script>
