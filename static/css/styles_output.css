@@ -672,6 +672,10 @@ video {
   top: 15vh;
 }
 
+.top-\[18vh\] {
+  top: 18vh;
+}
+
 .top-\[23vh\] {
   top: 23vh;
 }
@@ -680,52 +684,12 @@ video {
   top: 25rem;
 }
 
-.top-36 {
-  top: 9rem;
-}
-
-.top-24 {
-  top: 6rem;
-}
-
-.top-28 {
-  top: 7rem;
-}
-
-.top-72 {
-  top: 18rem;
-}
-
-.top-96 {
-  top: 24rem;
-}
-
-.top-\[50vh\] {
-  top: 50vh;
-}
-
-.top-\[45vh\] {
-  top: 45vh;
-}
-
-.top-\[48vh\] {
-  top: 48vh;
-}
-
-.top-\[44vh\] {
-  top: 44vh;
-}
-
 .top-\[43vh\] {
   top: 43vh;
 }
 
-.top-\[20vh\] {
-  top: 20vh;
-}
-
-.top-\[18vh\] {
-  top: 18vh;
+.top-\[22rem\] {
+  top: 22rem;
 }
 
 .z-10 {
@@ -757,9 +721,24 @@ video {
   margin-right: auto;
 }
 
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
 .mx-12 {
   margin-left: 3rem;
   margin-right: 3rem;
+}
+
+.mx-\[2rem\] {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.mx-\[5vw\] {
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 
 .-mt-1 {
@@ -772,6 +751,10 @@ video {
 
 .mb-1 {
   margin-bottom: 0.25rem;
+}
+
+.mb-12 {
+  margin-bottom: 3rem;
 }
 
 .mb-16 {
@@ -854,12 +837,32 @@ video {
   margin-top: auto;
 }
 
-.mb-12 {
-  margin-bottom: 3rem;
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
+.me-\[7vw\] {
+  margin-inline-end: 7vw;
+}
+
+.ms-\[5vw\] {
+  margin-inline-start: 5vw;
+}
+
+.me-\[10vw\] {
+  margin-inline-end: 10vw;
+}
+
+.me-\[15vw\] {
+  margin-inline-end: 15vw;
 }
 
 .block {
   display: block;
+}
+
+.inline {
+  display: inline;
 }
 
 .flex {
@@ -948,14 +951,6 @@ video {
   width: 7rem;
 }
 
-.w-3\/4 {
-  width: 75%;
-}
-
-.w-3\/5 {
-  width: 60%;
-}
-
 .w-36 {
   width: 9rem;
 }
@@ -982,6 +977,23 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.w-\[85vw\] {
+  width: 85vw;
+}
+
+.w-\[90vw\] {
+  width: 90vw;
+}
+
+.w-\[88vw\] {
+  width: 88vw;
 }
 
 .min-w-80 {
@@ -1273,9 +1285,9 @@ video {
   padding-bottom: 1.25rem;
 }
 
-.px-12 {
-  padding-left: 3rem;
-  padding-right: 3rem;
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
 .pb-\[10rem\] {
@@ -1288,6 +1300,10 @@ video {
 
 .ps-2 {
   padding-inline-start: 0.5rem;
+}
+
+.pt-5 {
+  padding-top: 1.25rem;
 }
 
 .text-center {
@@ -1673,46 +1689,6 @@ textarea:focus-visible {
   }
 }
 
-@media (min-width: 480px) {
-  .xs\:container {
-    width: 100%;
-    padding-right: 1rem;
-    padding-left: 1rem;
-  }
-
-  @media (min-width: 900px) {
-    .xs\:container {
-      max-width: 900px;
-      padding-right: 2.5vw;
-      padding-left: 2.5vw;
-    }
-  }
-
-  @media (min-width: 1080px) {
-    .xs\:container {
-      max-width: 1080px;
-      padding-right: 5vw;
-      padding-left: 5vw;
-    }
-  }
-
-  @media (min-width: 1380px) {
-    .xs\:container {
-      max-width: 1380px;
-      padding-right: 10vw;
-      padding-left: 10vw;
-    }
-  }
-
-  @media (min-width: 1600px) {
-    .xs\:container {
-      max-width: 1600px;
-      padding-right: 12.5vw;
-      padding-left: 12.5vw;
-    }
-  }
-}
-
 .\*\:cursor-pointer > * {
   cursor: pointer;
 }
@@ -1760,8 +1736,17 @@ textarea:focus-visible {
 }
 
 @media (min-width: 480px) {
+  .xs\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .xs\:mb-5 {
     margin-bottom: 1.25rem;
+  }
+
+  .xs\:mt-10 {
+    margin-top: 2.5rem;
   }
 
   .xs\:h-\[22rem\] {
@@ -1770,6 +1755,50 @@ textarea:focus-visible {
 
   .xs\:w-\[40vw\] {
     width: 40vw;
+  }
+
+  .xs\:w-3\/4 {
+    width: 75%;
+  }
+
+  .xs\:w-full {
+    width: 100%;
+  }
+
+  .xs\:w-1\/3 {
+    width: 33.333333%;
+  }
+
+  .xs\:w-1\/4 {
+    width: 25%;
+  }
+
+  .xs\:w-2\/4 {
+    width: 50%;
+  }
+
+  .xs\:w-\[20rem\] {
+    width: 20rem;
+  }
+
+  .xs\:w-\[22rem\] {
+    width: 22rem;
+  }
+
+  .xs\:w-\[25rem\] {
+    width: 25rem;
+  }
+
+  .xs\:w-\[24rem\] {
+    width: 24rem;
+  }
+
+  .xs\:w-80 {
+    width: 20rem;
+  }
+
+  .xs\:min-w-80 {
+    min-width: 20rem;
   }
 
   .xs\:auto-rows-fr {
@@ -1805,6 +1834,10 @@ textarea:focus-visible {
 
   .sm\:gap-3 {
     gap: 0.75rem;
+  }
+
+  .sm\:p-8 {
+    padding: 2rem;
   }
 
   .sm\:text-3xl {
@@ -1886,6 +1919,14 @@ textarea:focus-visible {
     margin-bottom: 0.75rem;
   }
 
+  .lg\:w-1\/2 {
+    width: 50%;
+  }
+
+  .lg\:w-1\/4 {
+    width: 25%;
+  }
+
   .lg\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
@@ -1893,6 +1934,10 @@ textarea:focus-visible {
 }
 
 @media (min-width: 1280px) {
+  .xl\:left-1\/2 {
+    left: 50%;
+  }
+
   .xl\:top-48 {
     top: 12rem;
   }
@@ -1901,21 +1946,8 @@ textarea:focus-visible {
     top: 25rem;
   }
 
-  .xl\:left-1\/2 {
-    left: 50%;
-  }
-
-  .xl\:top-\[20vh\] {
-    top: 20vh;
-  }
-
   .xl\:m-12 {
     margin: 3rem;
-  }
-
-  .xl\:mx-12 {
-    margin-left: 3rem;
-    margin-right: 3rem;
   }
 
   .xl\:mt-5 {
@@ -1926,6 +1958,10 @@ textarea:focus-visible {
     width: 33.333333%;
   }
 
+  .xl\:w-3\/4 {
+    width: 75%;
+  }
+
   .xl\:w-3\/5 {
     width: 60%;
   }
@@ -1934,8 +1970,12 @@ textarea:focus-visible {
     width: 80vw;
   }
 
-  .xl\:w-3\/4 {
-    width: 75%;
+  .xl\:w-2\/5 {
+    width: 40%;
+  }
+
+  .xl\:w-1\/5 {
+    width: 20%;
   }
 
   .xl\:-translate-x-1\/2 {
@@ -1949,6 +1989,11 @@ textarea:focus-visible {
 
   .xl\:p-12 {
     padding: 3rem;
+  }
+
+  .xl\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
   .xl\:text-2xl {
@@ -1979,5 +2024,11 @@ textarea:focus-visible {
   .xl\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .\32xl\:w-1\/5 {
+    width: 20%;
   }
 }

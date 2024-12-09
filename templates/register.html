@@ -1,20 +1,20 @@
 {% extends "base.html" %} {% block content %}
 <h1
-  class="text-6xl font-extrabold font-sans text-white fixed top-48 left-1/2 transform -translate-x-1/2 z-20"
+  class="absolute text-6xl font-extrabold font-sans text-white top-[18vh] xl:top-48 left-1/2 transform -translate-x-1/2 z-20"
 >
   Register
 </h1>
 <div
-  class="container mt-12 min-w-fit absolute left-1/2 transform -translate-x-1/2 top-[15rem] md:top-[22rem] z-30"
+  class="w-full mt-12 z-10"
 >
   <form
     action="{{ url_for('main.register') }}"
     method="POST"
-    class="text-start w-full flex flex-col"
+    class="w-full"
   >
     {{ form.csrf_token }}
     <div
-      class="flex flex-col gap-3 xl:w-1/3 h-full mx-auto mb-16 shadow-2xl m-12 p-12 bg-gray-100 rounded-lg article-card relative z-30"
+      class="w-[88vw] xs:w-80 h-full block ms-[5vw] me-[15vw] xs:mx-auto shadow-2xl md:mt-12 p-12 rounded-lg flex flex-col gap-3"
       id="write-container"
     >
       <div class="w-full">

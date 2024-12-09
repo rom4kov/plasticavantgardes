@@ -30,6 +30,12 @@
       <a href="/" class="py-2 text-4xl block">Home</a>
       <a href="/about" class="py-2 text-4xl block">About</a>
       <a href="/contact" class="py-2 text-4xl block">Contact</a>
+      {% if current_user.is_authenticated: %}
+      <a class="py-2 text-4xl block"><a href="/logout">Logout</a></a>
+      {% else: %}
+      <a class="py-2 text-4xl block" href="/login">Login</a>
+      <a class="py-2 text-4xl block" href="/register">Register</a>
+      {% endif %}
     </div>
   </div>
 </nav>
