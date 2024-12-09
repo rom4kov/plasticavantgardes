@@ -680,6 +680,54 @@ video {
   top: 25rem;
 }
 
+.top-36 {
+  top: 9rem;
+}
+
+.top-24 {
+  top: 6rem;
+}
+
+.top-28 {
+  top: 7rem;
+}
+
+.top-72 {
+  top: 18rem;
+}
+
+.top-96 {
+  top: 24rem;
+}
+
+.top-\[50vh\] {
+  top: 50vh;
+}
+
+.top-\[45vh\] {
+  top: 45vh;
+}
+
+.top-\[48vh\] {
+  top: 48vh;
+}
+
+.top-\[44vh\] {
+  top: 44vh;
+}
+
+.top-\[43vh\] {
+  top: 43vh;
+}
+
+.top-\[20vh\] {
+  top: 20vh;
+}
+
+.top-\[18vh\] {
+  top: 18vh;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -707,6 +755,11 @@ video {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.mx-12 {
+  margin-left: 3rem;
+  margin-right: 3rem;
 }
 
 .-mt-1 {
@@ -799,6 +852,10 @@ video {
 
 .mt-auto {
   margin-top: auto;
+}
+
+.mb-12 {
+  margin-bottom: 3rem;
 }
 
 .block {
@@ -1182,6 +1239,10 @@ video {
   padding: 1.25rem;
 }
 
+.p-8 {
+  padding: 2rem;
+}
+
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -1210,6 +1271,11 @@ video {
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .pb-\[10rem\] {
@@ -1607,6 +1673,46 @@ textarea:focus-visible {
   }
 }
 
+@media (min-width: 480px) {
+  .xs\:container {
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  @media (min-width: 900px) {
+    .xs\:container {
+      max-width: 900px;
+      padding-right: 2.5vw;
+      padding-left: 2.5vw;
+    }
+  }
+
+  @media (min-width: 1080px) {
+    .xs\:container {
+      max-width: 1080px;
+      padding-right: 5vw;
+      padding-left: 5vw;
+    }
+  }
+
+  @media (min-width: 1380px) {
+    .xs\:container {
+      max-width: 1380px;
+      padding-right: 10vw;
+      padding-left: 10vw;
+    }
+  }
+
+  @media (min-width: 1600px) {
+    .xs\:container {
+      max-width: 1600px;
+      padding-right: 12.5vw;
+      padding-left: 12.5vw;
+    }
+  }
+}
+
 .\*\:cursor-pointer > * {
   cursor: pointer;
 }
@@ -1787,6 +1893,31 @@ textarea:focus-visible {
 }
 
 @media (min-width: 1280px) {
+  .xl\:top-48 {
+    top: 12rem;
+  }
+
+  .xl\:top-\[25rem\] {
+    top: 25rem;
+  }
+
+  .xl\:left-1\/2 {
+    left: 50%;
+  }
+
+  .xl\:top-\[20vh\] {
+    top: 20vh;
+  }
+
+  .xl\:m-12 {
+    margin: 3rem;
+  }
+
+  .xl\:mx-12 {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+
   .xl\:mt-5 {
     margin-top: 1.25rem;
   }
@@ -1803,8 +1934,21 @@ textarea:focus-visible {
     width: 80vw;
   }
 
+  .xl\:w-3\/4 {
+    width: 75%;
+  }
+
+  .xl\:-translate-x-1\/2 {
+    --tw-translate-x: -50%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
   .xl\:gap-12 {
     gap: 3rem;
+  }
+
+  .xl\:p-12 {
+    padding: 3rem;
   }
 
   .xl\:text-2xl {
