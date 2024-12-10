@@ -12,11 +12,11 @@
       <div class="mobile-menu-button flex flex-col justify-center z-20">
         <div class="relative py-3 sm:max-w-xl mx-auto">
           <nav x-data="{ open: false }">
-            <button id="hamburger" class="text-[white] dark:text[white] w-6 h-6 relative focus:outline-none" @click="open = !open">
+            <button id="hamburger" class="w-6 h-6 relative focus:outline-none" @click="open = !open">
               <span class="sr-only">Open main menu</span>
               <div class="block w-5 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-[#cdcdcd] transform transition duration-500 ease-in-out" :class="{'rotate-45': open,' -translate-y-1.5': !open }"
-                style="background-color: #c9c9c9;"></span>
+                style="background-color: white;"></span>
                 <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-[#cdcdcd] transform transition duration-500 ease-in-out" :class="{'opacity-0': open } "></span>
                 <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-[#cdcdcd] transform transition duration-500 ease-in-out" :class="{'-rotate-45': open, ' translate-y-1.5': !open}"></span>
               </div>
@@ -92,7 +92,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     const elements = document.querySelectorAll('#hamburger div span');
     elements.forEach(el => {
-      el.style.backgroundColor = "#c9c9c9";
+      el.style.backgroundColor = "white";
     });
   });
 </script>
