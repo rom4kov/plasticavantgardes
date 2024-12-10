@@ -167,6 +167,7 @@ textarea:focus-visible {
 
 @media (prefers-color-scheme: dark) {
   #hamburger div span {
-    color: white !important;
+    color: #cdcdcd !important;
+    background-color: #cdcdcd !important;
   }
 }

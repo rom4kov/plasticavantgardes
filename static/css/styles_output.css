@@ -1153,6 +1153,11 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-\[\#cdcdcd\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(205 205 205 / var(--tw-bg-opacity));
+}
+
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
@@ -1618,7 +1623,8 @@ textarea:focus-visible {
 
 @media (prefers-color-scheme: dark) {
   #hamburger div span {
-    color: white !important;
+    color: #cdcdcd !important;
+    background-color: #cdcdcd !important;
   }
 }
 
