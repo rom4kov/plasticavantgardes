@@ -90,10 +90,10 @@
   });
 
   document.addEventListener("DOMContentLoaded", () => {
-    const elements = document.querySelectorAll('#hamburger div span');
-    elements.forEach(el => {
-      el.style.backgroundColor = "#fdfbfe";
-    });
+    const targetElement = document.querySelector('#hamburger div span');
+    if (targetElement) {
+      targetElement.style.backgroundColor = "var(--forced-bg-color)";
+    }
   });
 </script>
 

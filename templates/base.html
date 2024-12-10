@@ -1,44 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}{% endblock %}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/styles_output.css">
-    <link rel="icon" type="image/png" href="/static/assets/favicon-96x96.png" sizes="96x96" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../static/css/styles_output.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/static/assets/favicon-96x96.png"
+      sizes="96x96"
+    />
     <link rel="icon" type="image/svg+xml" href="/static/assets/favicon.svg" />
     <link rel="shortcut icon" href="/static/assets/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/assets/apple-touch-icon.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/static/assets/apple-touch-icon.png"
+    />
     <meta name="apple-mobile-web-app-title" content="Plastic Avantgardes" />
-<link rel="manifest" href="/static/assets/site.webmanifest" />
-</head>
-<body class="bg-slate-100">
-    {% include "header.html" %}
-    {% block content %}{% endblock %}
-    {% include "scrollToTop.html" %}
-    {% include "footer.html" %}
+    <style>
+      :root {
+        --forced-bg-color: white;
+      }
+    </style>
+    <link rel="manifest" href="/static/assets/site.webmanifest" />
+  </head>
+  <body class="bg-slate-100">
+    {% include "header.html" %} {% block content %}{% endblock %} {% include
+    "scrollToTop.html" %} {% include "footer.html" %}
     <script>
-        const navbar = document.querySelector("nav.w-full");
-        const mobileNavTop = document.querySelector("#mobile-navbar-top");
-        console.log(mobileNavTop);
-        window.addEventListener("scroll", () => {
-          if (window.innerWidth < 730) {
-            if (window.scrollY >= 100) {
-                mobileNavTop.classList.add("bg-black/70", "backdrop-blur-sm");
-            } else {
-                mobileNavTop.classList.remove("bg-black/70", "backdrop-blur-sm")
-            }
+      const navbar = document.querySelector("nav.w-full");
+      const mobileNavTop = document.querySelector("#mobile-navbar-top");
+      console.log(mobileNavTop);
+      window.addEventListener("scroll", () => {
+        if (window.innerWidth < 730) {
+          if (window.scrollY >= 100) {
+            mobileNavTop.classList.add("bg-black/70", "backdrop-blur-sm");
           } else {
-            if (window.scrollY >= 100) {
-                navbar.classList.add("bg-black/70", "backdrop-blur-sm");
-            } else {
-                navbar.classList.remove("bg-black/70", "backdrop-blur-sm")
-            }
+            mobileNavTop.classList.remove("bg-black/70", "backdrop-blur-sm");
           }
-        })
+        } else {
+          if (window.scrollY >= 100) {
+            navbar.classList.add("bg-black/70", "backdrop-blur-sm");
+          } else {
+            navbar.classList.remove("bg-black/70", "backdrop-blur-sm");
+          }
+        }
+      });
     </script>
     <script src="../static/js/switchNavbarStyle.js"></script>
     <script src="../static/js/scrollToTop.js"></script>
-</body>
+  </body>
 </html>
