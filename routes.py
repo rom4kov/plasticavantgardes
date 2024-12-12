@@ -303,11 +303,16 @@ def like_comment(comment_id):
 @login_required
 @admin_only
 def delete(post_id):
-    post_to_delete = db.session.execute(
-        db.select(BlogPost).where(BlogPost.id == post_id)
-    ).scalar()
-    db.session.delete(post_to_delete)
-    db.session.commit()
+    print(post_id)
+    try:
+        post_to_delete = db.session.execute(
+                db.select(BlogPost).where(BlogPost.id == post_id)
+                ).scalar()
+        print(post_to_delete)
+        db.session.delete(post_to_delete)
+        db.session.commit()
+    except Exception as e:
+        raise e
     return redirect(url_for("main.home"))
 
 
