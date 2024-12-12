@@ -303,12 +303,15 @@ def like_comment(comment_id):
 @login_required
 @admin_only
 def delete(post_id):
-    print(post_id)
     try:
+        comments_to_delete = db.session.execute(
+                db.select(Comment).where(Comment.blog_post_id == post_id)
+                ).scalars()
+        for comment in comments_to_delete:
+            db.session.delete(comment)
         post_to_delete = db.session.execute(
                 db.select(BlogPost).where(BlogPost.id == post_id)
                 ).scalar()
-        print(post_to_delete)
         db.session.delete(post_to_delete)
         db.session.commit()
     except Exception as e:
