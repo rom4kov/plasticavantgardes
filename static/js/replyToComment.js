@@ -29,7 +29,9 @@ function replyToComment(comment_id) {
   });
 
   const repliesCount = document.querySelector("#replies-count");
-  repliesCount.innerText = parseInt(repliesCount.innerText) + 1;
+  if (repliesCount) {
+    repliesCount.innerText = parseInt(repliesCount.innerText) + 1;
+  };
   const newReply = document.querySelector("#template-reply");
   newReply.children[1].children[1].innerText = replyText;
   replies.appendChild(newReply);

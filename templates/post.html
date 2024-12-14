@@ -120,8 +120,8 @@
       {% endif %} {% if post.comments: %}
       <div class="mt-8 font-bold">
         <h4 class="mb-3 text-lg">{{ post.comments|length }} Comment(s)</h4>
-        {% for comment in post.comments: %} {% if comment.replied_to_id == None:
-        %}
+        {% for comment in post.comments: %} 
+        {% if comment.replied_to_id == None: %}
         <div
           class="mb-5 p-5 border border-slate-300 rounded-xl flex"
           id="comment-id-{{ comment.id }}"
@@ -131,7 +131,7 @@
             alt=""
             class="w-8 h-8 me-3 rounded-full"
           />
-          <div>
+          <div class="w-full">
             <h5 class="text-base font-bold mb-3">
               {{ comment.author.name }} commented on {{ comment.date }}:
             </h5>

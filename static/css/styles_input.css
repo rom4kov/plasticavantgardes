@@ -174,7 +174,7 @@ textarea:focus ~ label {
 }
 
 input:focus-visible,
-textarea:focus-visible {
+textarea:focus-visible:not([name="reply"]) {
   border: 1px solid red;
   outline: none;
 }
