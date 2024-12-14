@@ -23,7 +23,7 @@
       {% endif %} {% endwith %}
 
       <div class="w-full">
-        {{ form.email(class="w-full h-8 mt-2 py-3 pe-6 s-2 rounded-md") }} {{
+        {{ form.email(class="w-full h-8 mt-2 py-3 pe-6 s-2 rounded-md", placeholder="", onclick="this.value = ''", required="true") }} {{
         form.email.label(class="block") }}
       </div>
       {% for err in form.email.errors %}
@@ -52,5 +52,15 @@
     // Remove the flash message from session storage
     sessionStorage.removeItem("flashMessage");
   }
+
+  document.addEventListener('input', function(event) {
+    if (event.target.nodeName && event.target.nodeName === "INPUT") {
+      if (event.target.value) {
+        event.target.setAttribute('filled', 'true')
+      } else {
+        event.target.removeAttribute('filled')
+      }
+    }
+  })
 </script>
 {% endblock %}

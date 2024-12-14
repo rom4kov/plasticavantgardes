@@ -35,4 +35,16 @@
     </div>
   </form>
 </div>
+<script>
+  document.addEventListener('input', function(event) {
+    if (event.target.nodeName && event.target.nodeName === "INPUT") {
+      if (event.target.value) {
+        event.target.setAttribute('filled', 'true')
+      } else {
+        event.target.removeAttribute('filled')
+
+      }
+    }
+  })
+</script>
 {% endblock %}
