@@ -23,7 +23,7 @@
       {% endif %} {% endwith %}
 
       <div class="w-full">
-        {{ form.email(class="w-full h-8 mt-2 py-3 px-6 s-2 rounded-md") }} {{
+        {{ form.email(class="w-full h-8 mt-2 py-3 pe-6 s-2 rounded-md") }} {{
         form.email.label(class="block") }}
       </div>
       {% for err in form.email.errors %}
@@ -31,7 +31,7 @@
       {% endfor %}
 
       <div class="w-full">
-        {{ form.password(class="w-full h-8 mt-2 py-3 px-6 s-2 rounded-md") }} {{
+        {{ form.password(class="w-full h-8 mt-2 py-3 pe-6 s-2 rounded-md") }} {{
         form.password.label(class="block") }}
       </div>
       {% for err in form.password.errors %}
