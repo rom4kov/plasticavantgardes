@@ -15,6 +15,8 @@ This is how it looks like to login, pick a blogpost you find interesting, to lik
 
 It is also possible to like comments, reply to them, and delete replies if needed, fostering dynamic and engaging interactions between users. Additionally, each user is assigned a profile image using the Gravatar library, which automatically displays the avatar linked to their email address if they have a Gravatar profile, adding a personal touch to their contributions.
 
-![plasticavantgardes2](https://github.com/user-attachments/assets/48bc7175-0931-4099-9e97-11197c7ba67e)
+<img src="https://imgur.com/63aSWqT.gif" width="100%" height="100%">
+
+
 
 
