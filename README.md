@@ -6,6 +6,7 @@ Plastic Avant-Gardes is a personal art blog designed for publishing and sharing 
 The site allows users to register and like or comment blogposts after having logged in. They can also reply to comments of blogposts. Writing blogposts is only possible for authorized users.
 
 ![screenshot_2025-02-15-192930](https://github.com/user-attachments/assets/3603b55b-0f0c-4e1a-adc0-34811b269b0a)
+<img src="https://github.com/user-attachments/assets/3603b55b-0f0c-4e1a-adc0-34811b269b0a" width=100>
 
 This is how it looks like to login, pick a blogpost you find interesting, to like it, leave a comment and deleting the comment again:
 
