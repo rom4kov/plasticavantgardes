@@ -9,7 +9,7 @@ The site allows users to register and like or comment blogposts after having log
 
 This is how it looks like to login, pick a blogpost you find interesting, to like it, leave a comment and deleting the comment again:
 
-![plasticavantgardes](https://github.com/user-attachments/assets/93bbfa9e-4879-4846-9408-d7325f22c589)
+![plasticavantgardes](https://github.com/user-attachments/assets/93bbfa9e-4879-4846-9408-d7325f22c589){ .image100percent }
 
 It is also possible to like comments, reply to them, and delete replies if needed, fostering dynamic and engaging interactions between users. Additionally, each user is assigned a profile image using the Gravatar library, which automatically displays the avatar linked to their email address if they have a Gravatar profile, adding a personal touch to their contributions.
 
