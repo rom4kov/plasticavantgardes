@@ -9,9 +9,8 @@ The site allows users to register and like or comment blogposts after having log
 
 
 This is how it looks like to login, pick a blogpost you find interesting, to like it, leave a comment and deleting the comment again:
-![login, like blogpost](https://imgur.com/a/Yn7rOKt.jpg)
 
-<img src="https://i.imgur.com/SFXLckm.gif">
+<img src="https://i.imgur.com/SFXLckm.gif" width="100%" height="100%">
 
 
 It is also possible to like comments, reply to them, and delete replies if needed, fostering dynamic and engaging interactions between users. Additionally, each user is assigned a profile image using the Gravatar library, which automatically displays the avatar linked to their email address if they have a Gravatar profile, adding a personal touch to their contributions.
